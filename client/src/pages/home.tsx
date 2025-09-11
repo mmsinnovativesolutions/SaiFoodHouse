@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
-import { Search, Coffee, Package, ShoppingBag, Award, Clock, Users, Heart, Shield, Star, Truck, Building, HandHeart, Target, Eye, Map, MapPin, Calendar, TrendingUp, Grid, Plus } from "lucide-react";
+import { Search, Coffee, Package, ShoppingBag, Award, Clock, Users, Heart, Shield, Star, Truck, Building, HandHeart, Target, Eye, Map, MapPin, Calendar, TrendingUp, Grid, Plus, Store, Utensils, School, Smartphone, Droplets, Cookie, Zap, Beef, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -696,6 +696,322 @@ export default function Home() {
                     Request a Brand
                   </Button>
                 </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Category Collections Section */}
+      <section className="py-20 bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 dark:from-amber-900/10 dark:via-yellow-900/10 dark:to-orange-900/10 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-3"
+          style={{ backgroundImage: `url(${productFlatlayBg})` }}
+        ></div>
+        <div className="absolute inset-0 pattern-dots opacity-20"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent" data-testid="category-collections-title">
+              Shop by Category
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Discover our comprehensive product range organized by category. From everyday essentials to premium brands, 
+              find exactly what your business needs.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Tea & Coffee */}
+            <Card 
+              className="bg-gradient-to-br from-amber-100 to-orange-200 dark:from-amber-900/30 dark:to-orange-900/30 border-amber-200 dark:border-amber-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer group"
+              onClick={() => setLocation('/products?search=tea coffee')}
+              data-testid="category-tea-coffee"
+            >
+              <CardContent className="p-8 text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:shadow-2xl transition-all duration-300">
+                  <Coffee className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-amber-800 dark:text-amber-200">Tea & Coffee</h3>
+                <p className="text-amber-700/80 dark:text-amber-300/80 leading-relaxed">
+                  Premium teas, instant coffee, ground coffee, and hot beverage accessories from trusted brands.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Snacks & Biscuits */}
+            <Card 
+              className="bg-gradient-to-br from-rose-100 to-pink-200 dark:from-rose-900/30 dark:to-pink-900/30 border-rose-200 dark:border-rose-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer group"
+              onClick={() => setLocation('/products?search=snacks biscuits')}
+              data-testid="category-snacks-biscuits"
+            >
+              <CardContent className="p-8 text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-rose-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:shadow-2xl transition-all duration-300">
+                  <Cookie className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-rose-800 dark:text-rose-200">Snacks & Biscuits</h3>
+                <p className="text-rose-700/80 dark:text-rose-300/80 leading-relaxed">
+                  Cookies, crackers, chips, namkeen, and sweet treats from popular Indian and international brands.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Oils & Staples */}
+            <Card 
+              className="bg-gradient-to-br from-yellow-100 to-amber-200 dark:from-yellow-900/30 dark:to-amber-900/30 border-yellow-200 dark:border-yellow-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer group"
+              onClick={() => setLocation('/products?search=oil staples rice flour')}
+              data-testid="category-oils-staples"
+            >
+              <CardContent className="p-8 text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:shadow-2xl transition-all duration-300">
+                  <Droplets className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-yellow-800 dark:text-yellow-200">Oils & Staples</h3>
+                <p className="text-yellow-700/80 dark:text-yellow-300/80 leading-relaxed">
+                  Cooking oils, rice, flour, pulses, and essential kitchen staples for everyday cooking needs.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Dairy & Beverages */}
+            <Card 
+              className="bg-gradient-to-br from-blue-100 to-cyan-200 dark:from-blue-900/30 dark:to-cyan-900/30 border-blue-200 dark:border-blue-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer group"
+              onClick={() => setLocation('/products?search=dairy milk beverages drinks')}
+              data-testid="category-dairy-beverages"
+            >
+              <CardContent className="p-8 text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:shadow-2xl transition-all duration-300">
+                  <Package className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-blue-800 dark:text-blue-200">Dairy & Beverages</h3>
+                <p className="text-blue-700/80 dark:text-blue-300/80 leading-relaxed">
+                  Fresh milk products, yogurt, cheese, juices, soft drinks, and health beverages.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Spices & Condiments */}
+            <Card 
+              className="bg-gradient-to-br from-orange-100 to-red-200 dark:from-orange-900/30 dark:to-red-900/30 border-orange-200 dark:border-orange-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer group"
+              onClick={() => setLocation('/products?search=spices masala condiments sauce')}
+              data-testid="category-spices-condiments"
+            >
+              <CardContent className="p-8 text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:shadow-2xl transition-all duration-300">
+                  <Zap className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-orange-800 dark:text-orange-200">Spices & Condiments</h3>
+                <p className="text-orange-700/80 dark:text-orange-300/80 leading-relaxed">
+                  Aromatic spices, masala powders, sauces, pickles, and flavor enhancers for authentic taste.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Personal Care */}
+            <Card 
+              className="bg-gradient-to-br from-purple-100 to-pink-200 dark:from-purple-900/30 dark:to-pink-900/30 border-purple-200 dark:border-purple-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer group"
+              onClick={() => setLocation('/products?search=personal care hygiene soap')}
+              data-testid="category-personal-care"
+            >
+              <CardContent className="p-8 text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:shadow-2xl transition-all duration-300">
+                  <Sparkles className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-purple-800 dark:text-purple-200">Personal Care</h3>
+                <p className="text-purple-700/80 dark:text-purple-300/80 leading-relaxed">
+                  Soaps, shampoos, toothpaste, skincare products, and hygiene essentials from leading brands.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Category Call to Action */}
+          <div className="text-center mt-16">
+            <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 dark:from-amber-400/10 dark:to-orange-400/10 rounded-2xl p-8 border border-amber-200/50 dark:border-amber-800/50">
+              <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+                Can't Find What You're Looking For?
+              </h3>
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
+                Our extensive catalog includes thousands of products across all categories. Use our search or browse all products.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/products">
+                  <Button className="px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold rounded-lg shadow-lg transition-all duration-300" data-testid="cta-view-all-products">
+                    View All Products
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button variant="outline" className="px-8 py-3 border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-900/20 font-semibold rounded-lg transition-all duration-300" data-testid="cta-custom-request">
+                    Custom Request
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Industries Served Section */}
+      <section className="py-20 bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 dark:from-indigo-900/10 dark:via-blue-900/10 dark:to-purple-900/10 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-3"
+          style={{ backgroundImage: `url(${groceryShelveBg})` }}
+        ></div>
+        <div className="absolute inset-0 pattern-dots opacity-30"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent" data-testid="industries-served-title">
+              Industries We Serve
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Trusted by diverse businesses across India. From small retailers to large institutions, 
+              we provide tailored wholesale solutions that drive success.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Retail Stores */}
+            <Card className="bg-gradient-to-br from-emerald-50 to-green-100 dark:from-emerald-900/20 dark:to-green-900/20 border-emerald-200 dark:border-emerald-700 hover:shadow-2xl transition-all duration-300 hover:scale-105" data-testid="industry-retail-stores">
+              <CardContent className="p-8 text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                  <Store className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-emerald-800 dark:text-emerald-200">Retail Stores</h3>
+                <p className="text-emerald-700/80 dark:text-emerald-300/80 mb-6 leading-relaxed">
+                  Neighborhood grocery stores, kirana shops, and specialty retail outlets. We provide competitive pricing, 
+                  flexible ordering, and reliable inventory management.
+                </p>
+                <Link href="/contact">
+                  <Button className="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-semibold py-3 rounded-lg shadow-lg transition-all duration-300" data-testid="cta-retail-partner">
+                    Partner with Us
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Supermarkets */}
+            <Card className="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200 dark:border-blue-700 hover:shadow-2xl transition-all duration-300 hover:scale-105" data-testid="industry-supermarkets">
+              <CardContent className="p-8 text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                  <Building className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-blue-800 dark:text-blue-200">Supermarkets</h3>
+                <p className="text-blue-700/80 dark:text-blue-300/80 mb-6 leading-relaxed">
+                  Large format stores and shopping complexes. We offer bulk supplies, category management support, 
+                  and streamlined procurement processes.
+                </p>
+                <Link href="/contact">
+                  <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg shadow-lg transition-all duration-300" data-testid="cta-supermarket-partner">
+                    Partner with Us
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Restaurants & Cafes */}
+            <Card className="bg-gradient-to-br from-orange-50 to-amber-100 dark:from-orange-900/20 dark:to-amber-900/20 border-orange-200 dark:border-orange-700 hover:shadow-2xl transition-all duration-300 hover:scale-105" data-testid="industry-restaurants-cafes">
+              <CardContent className="p-8 text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                  <Utensils className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-orange-800 dark:text-orange-200">Restaurants & Cafes</h3>
+                <p className="text-orange-700/80 dark:text-orange-300/80 mb-6 leading-relaxed">
+                  Food service establishments of all sizes. We supply fresh ingredients, beverages, and kitchen essentials 
+                  with quality assurance and timely delivery.
+                </p>
+                <Link href="/contact">
+                  <Button className="w-full bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-semibold py-3 rounded-lg shadow-lg transition-all duration-300" data-testid="cta-restaurant-partner">
+                    Partner with Us
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Hotels & Catering */}
+            <Card className="bg-gradient-to-br from-purple-50 to-violet-100 dark:from-purple-900/20 dark:to-violet-900/20 border-purple-200 dark:border-purple-700 hover:shadow-2xl transition-all duration-300 hover:scale-105" data-testid="industry-hotels-catering">
+              <CardContent className="p-8 text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                  <Building className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-purple-800 dark:text-purple-200">Hotels & Catering</h3>
+                <p className="text-purple-700/80 dark:text-purple-300/80 mb-6 leading-relaxed">
+                  Hospitality businesses and catering services. We provide bulk food supplies, premium brands, 
+                  and customized solutions for large-scale operations.
+                </p>
+                <Link href="/contact">
+                  <Button className="w-full bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white font-semibold py-3 rounded-lg shadow-lg transition-all duration-300" data-testid="cta-hotel-partner">
+                    Partner with Us
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Institutions */}
+            <Card className="bg-gradient-to-br from-teal-50 to-cyan-100 dark:from-teal-900/20 dark:to-cyan-900/20 border-teal-200 dark:border-teal-700 hover:shadow-2xl transition-all duration-300 hover:scale-105" data-testid="industry-institutions">
+              <CardContent className="p-8 text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                  <School className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-teal-800 dark:text-teal-200">Institutions</h3>
+                <p className="text-teal-700/80 dark:text-teal-300/80 mb-6 leading-relaxed">
+                  Schools, hospitals, offices, and corporate facilities. We offer nutritious food options, 
+                  compliance support, and budget-friendly institutional pricing.
+                </p>
+                <Link href="/contact">
+                  <Button className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white font-semibold py-3 rounded-lg shadow-lg transition-all duration-300" data-testid="cta-institution-partner">
+                    Partner with Us
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Online Retailers */}
+            <Card className="bg-gradient-to-br from-rose-50 to-pink-100 dark:from-rose-900/20 dark:to-pink-900/20 border-rose-200 dark:border-rose-700 hover:shadow-2xl transition-all duration-300 hover:scale-105" data-testid="industry-online-retailers">
+              <CardContent className="p-8 text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-rose-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                  <Smartphone className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-rose-800 dark:text-rose-200">Online Retailers</h3>
+                <p className="text-rose-700/80 dark:text-rose-300/80 mb-6 leading-relaxed">
+                  E-commerce platforms and digital retailers. We provide dropshipping support, inventory management, 
+                  and API integration for seamless online operations.
+                </p>
+                <Link href="/contact">
+                  <Button className="w-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-semibold py-3 rounded-lg shadow-lg transition-all duration-300" data-testid="cta-online-partner">
+                    Partner with Us
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Industries Call to Action */}
+          <div className="text-center mt-16">
+            <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 dark:from-indigo-400/10 dark:to-purple-400/10 rounded-2xl p-8 md:p-12 border border-indigo-200/50 dark:border-indigo-800/50">
+              <div className="flex flex-col md:flex-row items-center gap-8">
+                <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-xl">
+                  <HandHeart className="h-10 w-10 text-white" />
+                </div>
+                <div className="flex-1 text-center md:text-left">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+                    Ready to Partner with Us?
+                  </h3>
+                  <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                    Join thousands of businesses across India who trust Sai Food House for their wholesale needs. 
+                    Let's discuss how we can support your business growth with our comprehensive product range and reliable service.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <Link href="/contact">
+                      <Button className="px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg transition-all duration-300" data-testid="cta-get-started">
+                        Get Started Today
+                      </Button>
+                    </Link>
+                    <Link href="/brands">
+                      <Button variant="outline" className="px-8 py-4 border-2 border-purple-500 text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/20 font-semibold rounded-lg transition-all duration-300" data-testid="cta-explore-catalog">
+                        Explore Our Catalog
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
