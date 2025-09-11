@@ -17,7 +17,7 @@ export default function Products() {
   useEffect(() => {
     const params = new URLSearchParams(location.split('?')[1] || '');
     const urlSearch = params.get('search') || '';
-    const urlBrand = params.get('brand') || '';
+    const urlBrand = params.get('brand') || 'all';
     
     setSearchQuery(urlSearch);
     setSelectedBrand(urlBrand);
@@ -37,7 +37,7 @@ export default function Products() {
       product.productName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.brand.toLowerCase().includes(searchQuery.toLowerCase());
     
-    const matchesBrand = !selectedBrand || 
+    const matchesBrand = !selectedBrand || selectedBrand === "all" ||
       product.brand.toLowerCase() === selectedBrand.toLowerCase();
 
     return matchesSearch && matchesBrand;
@@ -54,7 +54,7 @@ export default function Products() {
 
   const handleClearFilters = () => {
     setSearchQuery("");
-    setSelectedBrand("");
+    setSelectedBrand("all");
   };
 
   if (isLoading) {
@@ -97,7 +97,7 @@ export default function Products() {
                 <SelectValue placeholder="All Brands" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Brands</SelectItem>
+                <SelectItem value="all">All Brands</SelectItem>
                 {brands.map((brand) => (
                   <SelectItem key={brand.brand} value={brand.brand}>
                     {brand.brand}

@@ -1,5 +1,6 @@
-import { type Product, type InsertProduct, type Contact, type InsertContact } from "@shared/schema";
-import { randomUUID } from "crypto";
+import { type Product, type InsertProduct, type Contact, type InsertContact, products, contacts } from "@shared/schema";
+import { db } from "./db";
+import { eq, ilike, sql } from "drizzle-orm";
 
 export interface IStorage {
   // Products
@@ -13,19 +14,53 @@ export interface IStorage {
   createContact(contact: InsertContact): Promise<Contact>;
 }
 
-export class MemStorage implements IStorage {
-  private products: Map<string, Product>;
-  private contacts: Map<string, Contact>;
-
-  constructor() {
-    this.products = new Map();
-    this.contacts = new Map();
-    
-    // Initialize with sample data
-    this.initializeSampleData();
+export class DatabaseStorage implements IStorage {
+  async getAllProducts(): Promise<Product[]> {
+    return await db.select().from(products);
   }
 
-  private initializeSampleData() {
+  async getProductsByBrand(brand: string): Promise<Product[]> {
+    return await db.select().from(products).where(eq(products.brand, brand));
+  }
+
+  async createProduct(insertProduct: InsertProduct): Promise<Product> {
+    const [product] = await db
+      .insert(products)
+      .values(insertProduct)
+      .returning();
+    return product;
+  }
+
+  async searchProducts(query: string): Promise<Product[]> {
+    const searchPattern = `%${query}%`;
+    return await db.select().from(products).where(
+      sql`${products.productName} ILIKE ${searchPattern} OR ${products.brand} ILIKE ${searchPattern}`
+    );
+  }
+
+  async getAllBrands(): Promise<{ brand: string; productCount: number }[]> {
+    const result = await db
+      .select({
+        brand: products.brand,
+        productCount: sql<number>`count(*)::int`
+      })
+      .from(products)
+      .groupBy(products.brand)
+      .orderBy(products.brand);
+    
+    return result;
+  }
+
+  async createContact(insertContact: InsertContact): Promise<Contact> {
+    const [contact] = await db
+      .insert(contacts)
+      .values(insertContact)
+      .returning();
+    return contact;
+  }
+
+  // Method to initialize sample data in database
+  async initializeSampleData(): Promise<void> {
     const sampleProducts: InsertProduct[] = [
       // Veeba Products
       { brand: "Veeba", productName: "Mint Mayo", weightPack: "255 Gm" },
@@ -83,63 +118,16 @@ export class MemStorage implements IStorage {
       { brand: "Abbies", productName: "Granola Bars", weightPack: "6*25 Gm" },
     ];
 
-    sampleProducts.forEach(product => {
-      const id = randomUUID();
-      const fullProduct: Product = { ...product, id };
-      this.products.set(id, fullProduct);
-    });
-  }
-
-  async getAllProducts(): Promise<Product[]> {
-    return Array.from(this.products.values());
-  }
-
-  async getProductsByBrand(brand: string): Promise<Product[]> {
-    return Array.from(this.products.values()).filter(
-      product => product.brand.toLowerCase() === brand.toLowerCase()
-    );
-  }
-
-  async createProduct(insertProduct: InsertProduct): Promise<Product> {
-    const id = randomUUID();
-    const product: Product = { ...insertProduct, id };
-    this.products.set(id, product);
-    return product;
-  }
-
-  async searchProducts(query: string): Promise<Product[]> {
-    const lowerQuery = query.toLowerCase();
-    return Array.from(this.products.values()).filter(
-      product => 
-        product.productName.toLowerCase().includes(lowerQuery) ||
-        product.brand.toLowerCase().includes(lowerQuery)
-    );
-  }
-
-  async getAllBrands(): Promise<{ brand: string; productCount: number }[]> {
-    const brandCounts = new Map<string, number>();
-    
-    Array.from(this.products.values()).forEach(product => {
-      const count = brandCounts.get(product.brand) || 0;
-      brandCounts.set(product.brand, count + 1);
-    });
-
-    return Array.from(brandCounts.entries()).map(([brand, productCount]) => ({
-      brand,
-      productCount
-    })).sort((a, b) => a.brand.localeCompare(b.brand));
-  }
-
-  async createContact(insertContact: InsertContact): Promise<Contact> {
-    const id = randomUUID();
-    const contact: Contact = { 
-      ...insertContact, 
-      id, 
-      createdAt: new Date().toISOString()
-    };
-    this.contacts.set(id, contact);
-    return contact;
+    // Check if data already exists
+    const existingProducts = await this.getAllProducts();
+    if (existingProducts.length === 0) {
+      // Insert sample data
+      await db.insert(products).values(sampleProducts);
+    }
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
+
+// Initialize sample data on startup
+storage.initializeSampleData().catch(console.error);
