@@ -15,6 +15,11 @@ export const contacts = pgTable("contacts", {
   name: text("name").notNull(),
   email: text("email").notNull(),
   message: text("message").notNull(),
+  companyName: text("company_name"),
+  phone: text("phone"),
+  productInterest: text("product_interest"),
+  quantity: text("quantity"),
+  enquiryType: text("enquiry_type").default("general"),
   createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
 });
 
@@ -27,7 +32,16 @@ export const insertContactSchema = createInsertSchema(contacts).omit({
   createdAt: true,
 });
 
+export const insertBulkEnquirySchema = insertContactSchema.extend({
+  companyName: z.string().min(2, "Company name must be at least 2 characters"),
+  phone: z.string().min(10, "Phone number must be at least 10 characters"),
+  productInterest: z.string().min(1, "Please specify your product interest"),
+  quantity: z.string().min(1, "Please specify required quantity"),
+  enquiryType: z.literal("bulk").default("bulk"),
+});
+
 export type InsertProduct = z.infer<typeof insertProductSchema>;
 export type Product = typeof products.$inferSelect;
 export type InsertContact = z.infer<typeof insertContactSchema>;
+export type InsertBulkEnquiry = z.infer<typeof insertBulkEnquirySchema>;
 export type Contact = typeof contacts.$inferSelect;

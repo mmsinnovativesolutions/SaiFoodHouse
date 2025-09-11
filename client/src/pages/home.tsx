@@ -1,13 +1,21 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
-import { Search, Coffee, Package, ShoppingBag, Award, Clock, Users, Heart, Shield, Star, Truck, Building, HandHeart, Target, Eye, Map, MapPin, Calendar, TrendingUp, Grid, Plus, Store, Utensils, School, Smartphone, Droplets, Cookie, Zap, Beef, Sparkles } from "lucide-react";
+import { Search, Coffee, Package, ShoppingBag, Award, Clock, Users, Heart, Shield, Star, Truck, Building, HandHeart, Target, Eye, Map, MapPin, Calendar, TrendingUp, Grid, Plus, Store, Utensils, School, Smartphone, Droplets, Cookie, Zap, Beef, Sparkles, ChevronDown, CreditCard, Settings, CheckCircle, FileText, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import BrandCard from "@/components/brand-card";
-import { type Product } from "@shared/schema";
+import { type Product, type InsertBulkEnquiry, insertBulkEnquirySchema } from "@shared/schema";
 
 // Import generated background images
 import productFlatlayBg from "@assets/generated_images/Food_beverage_product_flatlay_97becb28.png";
@@ -18,6 +26,8 @@ export default function Home() {
   const [, setLocation] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("top-brands");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { toast } = useToast();
 
   const { data: products = [] } = useQuery<Product[]>({
     queryKey: ["/api/products"],
@@ -74,6 +84,46 @@ export default function Home() {
 
   const totalBrands = brands.length;
   const totalProducts = products.length;
+
+  // Bulk enquiry form
+  const bulkForm = useForm<InsertBulkEnquiry>({
+    resolver: zodResolver(insertBulkEnquirySchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      companyName: "",
+      phone: "",
+      productInterest: "",
+      quantity: "",
+      message: "",
+      enquiryType: "bulk",
+    },
+  });
+
+  const bulkEnquiryMutation = useMutation({
+    mutationFn: (data: InsertBulkEnquiry) => 
+      apiRequest("/api/contacts", "POST", data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/contacts"] });
+      toast({
+        title: "Bulk Enquiry Submitted!",
+        description: "Thank you for your interest. We'll contact you within 24 hours with a customized quote.",
+      });
+      bulkForm.reset();
+      setIsModalOpen(false);
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to submit enquiry. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleBulkEnquiry = (data: InsertBulkEnquiry) => {
+    bulkEnquiryMutation.mutate(data);
+  };
 
   return (
     <div>
@@ -1014,6 +1064,544 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services & Logistics Section */}
+      <section className="py-20 bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50 dark:from-slate-900/50 dark:via-gray-900/50 dark:to-zinc-900/50 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-3"
+          style={{ backgroundImage: `url(${groceryShelveBg})` }}
+        ></div>
+        <div className="absolute inset-0 pattern-dots opacity-20"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-slate-600 to-gray-700 bg-clip-text text-transparent" data-testid="services-title">
+              Our Wholesale Services
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Comprehensive B2B solutions designed to support your business growth with flexible terms, 
+              reliable logistics, and competitive wholesale pricing.
+            </p>
+          </div>
+
+          <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-700/50 p-8 shadow-xl">
+            <Accordion type="single" collapsible className="space-y-4" data-testid="services-accordion">
+              <AccordionItem value="moq" className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white/80 dark:bg-gray-900/80 shadow-sm" data-testid="accordion-moq">
+                <AccordionTrigger className="px-6 py-4 hover:no-underline data-[state=open]:rounded-t-lg" data-testid="trigger-moq">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
+                      <Package className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Minimum Order Quantities (MOQ)</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Flexible bulk ordering requirements</p>
+                    </div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-6 text-gray-700 dark:text-gray-300" data-testid="content-moq">
+                  <div className="space-y-4">
+                    <p className="leading-relaxed">
+                      We understand that different businesses have varying requirements. Our MOQ is designed to be flexible while ensuring cost-effective operations:
+                    </p>
+                    <ul className="space-y-2 pl-4">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                        <span><strong>Food & Beverages:</strong> Minimum 50 units per SKU for packaged goods</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                        <span><strong>Personal & Home Care:</strong> Minimum 25 units per SKU</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                        <span><strong>Mixed Orders:</strong> Minimum order value of ₹10,000 across all products</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                        <span><strong>Custom Requirements:</strong> Negotiable MOQ for institutional orders</span>
+                      </li>
+                    </ul>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="delivery" className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white/80 dark:bg-gray-900/80 shadow-sm" data-testid="accordion-delivery">
+                <AccordionTrigger className="px-6 py-4 hover:no-underline" data-testid="trigger-delivery">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center shadow-lg">
+                      <Truck className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Delivery & Distribution</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Nationwide coverage with reliable logistics</p>
+                    </div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-6 text-gray-700 dark:text-gray-300" data-testid="content-delivery">
+                  <div className="space-y-4">
+                    <p className="leading-relaxed">
+                      Our comprehensive distribution network ensures timely delivery across India with multiple delivery options:
+                    </p>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <h4 className="font-semibold text-gray-800 dark:text-gray-200">Coverage Areas:</h4>
+                        <ul className="space-y-1 text-sm">
+                          <li className="flex items-center gap-2"><MapPin className="h-4 w-4 text-blue-500" /> 25+ states across India</li>
+                          <li className="flex items-center gap-2"><MapPin className="h-4 w-4 text-blue-500" /> 500+ cities and towns</li>
+                          <li className="flex items-center gap-2"><MapPin className="h-4 w-4 text-blue-500" /> Urban and rural delivery</li>
+                        </ul>
+                      </div>
+                      <div className="space-y-2">
+                        <h4 className="font-semibold text-gray-800 dark:text-gray-200">Delivery Timeline:</h4>
+                        <ul className="space-y-1 text-sm">
+                          <li className="flex items-center gap-2"><Clock className="h-4 w-4 text-green-500" /> Metro cities: 2-3 business days</li>
+                          <li className="flex items-center gap-2"><Clock className="h-4 w-4 text-green-500" /> Tier-2 cities: 3-5 business days</li>
+                          <li className="flex items-center gap-2"><Clock className="h-4 w-4 text-green-500" /> Rural areas: 5-7 business days</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="payment" className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white/80 dark:bg-gray-900/80 shadow-sm" data-testid="accordion-payment">
+                <AccordionTrigger className="px-6 py-4 hover:no-underline" data-testid="trigger-payment">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full flex items-center justify-center shadow-lg">
+                      <CreditCard className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Payment Terms & Methods</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Flexible payment options for B2B customers</p>
+                    </div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-6 text-gray-700 dark:text-gray-300" data-testid="content-payment">
+                  <div className="space-y-4">
+                    <p className="leading-relaxed">
+                      We offer flexible payment terms designed to support your business cash flow and operations:
+                    </p>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-gray-800 dark:text-gray-200">Payment Terms:</h4>
+                        <ul className="space-y-2 text-sm">
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                            <span><strong>Net 30:</strong> 30-day credit terms for established partners</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                            <span><strong>Net 15:</strong> 15-day terms for new business partners</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                            <span><strong>Advance Payment:</strong> 2% early payment discount</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-gray-800 dark:text-gray-200">Accepted Methods:</h4>
+                        <ul className="space-y-2 text-sm">
+                          <li className="flex items-center gap-2"><CreditCard className="h-4 w-4 text-blue-500" /> Bank transfers & UPI</li>
+                          <li className="flex items-center gap-2"><CreditCard className="h-4 w-4 text-blue-500" /> Demand drafts & cheques</li>
+                          <li className="flex items-center gap-2"><CreditCard className="h-4 w-4 text-blue-500" /> Letter of Credit (LC) for large orders</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="pricing" className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white/80 dark:bg-gray-900/80 shadow-sm" data-testid="accordion-pricing">
+                <AccordionTrigger className="px-6 py-4 hover:no-underline" data-testid="trigger-pricing">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center shadow-lg">
+                      <TrendingUp className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Wholesale Pricing Structure</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Volume discounts and tier-based pricing</p>
+                    </div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-6 text-gray-700 dark:text-gray-300" data-testid="content-pricing">
+                  <div className="space-y-4">
+                    <p className="leading-relaxed">
+                      Our tiered pricing structure rewards larger volumes with better margins for your business:
+                    </p>
+                    <div className="space-y-4">
+                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-4 border border-blue-200/50 dark:border-blue-700/50">
+                        <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">Volume Discount Tiers:</h4>
+                        <div className="grid sm:grid-cols-3 gap-3 text-sm">
+                          <div className="text-center p-3 bg-white/70 dark:bg-gray-800/70 rounded-lg">
+                            <div className="font-semibold text-blue-600">Bronze Tier</div>
+                            <div className="text-xs text-gray-600 dark:text-gray-400">₹10K-50K monthly</div>
+                            <div className="font-bold text-blue-800 dark:text-blue-300">5% discount</div>
+                          </div>
+                          <div className="text-center p-3 bg-white/70 dark:bg-gray-800/70 rounded-lg">
+                            <div className="font-semibold text-orange-600">Silver Tier</div>
+                            <div className="text-xs text-gray-600 dark:text-gray-400">₹50K-2L monthly</div>
+                            <div className="font-bold text-orange-800 dark:text-orange-300">8% discount</div>
+                          </div>
+                          <div className="text-center p-3 bg-white/70 dark:bg-gray-800/70 rounded-lg">
+                            <div className="font-semibold text-yellow-600">Gold Tier</div>
+                            <div className="text-xs text-gray-600 dark:text-gray-400">₹2L+ monthly</div>
+                            <div className="font-bold text-yellow-800 dark:text-yellow-300">12% discount</div>
+                          </div>
+                        </div>
+                      </div>
+                      <ul className="space-y-2 text-sm">
+                        <li className="flex items-start gap-2">
+                          <Star className="h-4 w-4 text-yellow-500 mt-0.5" />
+                          <span>Additional discounts for annual contracts and exclusive partnerships</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Star className="h-4 w-4 text-yellow-500 mt-0.5" />
+                          <span>Seasonal promotions and special pricing for festival periods</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="quality" className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white/80 dark:bg-gray-900/80 shadow-sm" data-testid="accordion-quality">
+                <AccordionTrigger className="px-6 py-4 hover:no-underline" data-testid="trigger-quality">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center shadow-lg">
+                      <Shield className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Quality Assurance</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Certifications and product standards</p>
+                    </div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-6 text-gray-700 dark:text-gray-300" data-testid="content-quality">
+                  <div className="space-y-4">
+                    <p className="leading-relaxed">
+                      We maintain the highest standards of quality control throughout our supply chain to ensure you receive only the best products:
+                    </p>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-gray-800 dark:text-gray-200">Our Standards:</h4>
+                        <ul className="space-y-2 text-sm">
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                            <span>FSSAI licensed and compliant operations</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                            <span>Temperature-controlled storage facilities</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                            <span>Regular quality audits and inspections</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-gray-800 dark:text-gray-200">Partner Verification:</h4>
+                        <ul className="space-y-2 text-sm">
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                            <span>All brands certified and authenticated</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                            <span>Batch tracking and expiry management</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />
+                            <span>100% genuine products guarantee</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="custom" className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white/80 dark:bg-gray-900/80 shadow-sm" data-testid="accordion-custom">
+                <AccordionTrigger className="px-6 py-4 hover:no-underline" data-testid="trigger-custom">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-rose-500 to-pink-600 rounded-full flex items-center justify-center shadow-lg">
+                      <Settings className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Custom Solutions</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Private labeling and custom packaging</p>
+                    </div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-6 text-gray-700 dark:text-gray-300" data-testid="content-custom">
+                  <div className="space-y-4">
+                    <p className="leading-relaxed">
+                      Beyond standard wholesale, we offer customized solutions to help differentiate your business and build your brand:
+                    </p>
+                    <div className="space-y-4">
+                      <div className="bg-gradient-to-r from-rose-50 to-pink-50 dark:from-rose-900/20 dark:to-pink-900/20 rounded-lg p-4 border border-rose-200/50 dark:border-rose-700/50">
+                        <h4 className="font-semibold text-rose-800 dark:text-rose-200 mb-3">Available Services:</h4>
+                        <div className="grid sm:grid-cols-2 gap-4">
+                          <div>
+                            <h5 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Private Labeling:</h5>
+                            <ul className="space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                              <li className="flex items-center gap-2"><Sparkles className="h-3 w-3 text-rose-500" /> Custom brand labels</li>
+                              <li className="flex items-center gap-2"><Sparkles className="h-3 w-3 text-rose-500" /> Logo integration</li>
+                              <li className="flex items-center gap-2"><Sparkles className="h-3 w-3 text-rose-500" /> Minimum 500 units per SKU</li>
+                            </ul>
+                          </div>
+                          <div>
+                            <h5 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Custom Packaging:</h5>
+                            <ul className="space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                              <li className="flex items-center gap-2"><Sparkles className="h-3 w-3 text-rose-500" /> Bundle packaging</li>
+                              <li className="flex items-center gap-2"><Sparkles className="h-3 w-3 text-rose-500" /> Gift sets and combos</li>
+                              <li className="flex items-center gap-2"><Sparkles className="h-3 w-3 text-rose-500" /> Promotional packaging</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        <p><strong>Lead Time:</strong> 2-3 weeks for custom solutions. Contact our team to discuss your specific requirements and get detailed pricing.</p>
+                      </div>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </div>
+      </section>
+
+      {/* Bulk Enquiry CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/90 via-purple-600/90 to-pink-600/90"></div>
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-10"
+          style={{ backgroundImage: `url(${abstractIconsBg})` }}
+        ></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center">
+            <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+              <Quote className="h-10 w-10 text-white" />
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6" data-testid="bulk-enquiry-title">
+              Need Bulk Quantities? Get Custom Pricing!
+            </h2>
+            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+              Get competitive wholesale rates, flexible payment terms, and dedicated support for your business. 
+              Our team will create a customized quote based on your specific requirements.
+            </p>
+            
+            {/* Benefits Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 max-w-4xl mx-auto">
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <TrendingUp className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">Volume Discounts</h3>
+                <p className="text-white/80 text-sm">Save up to 12% with our tier-based pricing structure</p>
+              </div>
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Clock className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">Fast Response</h3>
+                <p className="text-white/80 text-sm">Get your custom quote within 24 hours</p>
+              </div>
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <HandHeart className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">Dedicated Support</h3>
+                <p className="text-white/80 text-sm">Personal account manager for bulk orders</p>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+              <DialogTrigger asChild>
+                <Button 
+                  size="lg" 
+                  className="px-12 py-6 bg-white text-purple-600 hover:bg-gray-100 font-bold text-lg rounded-xl shadow-2xl transition-all duration-300 transform hover:scale-105" 
+                  data-testid="bulk-enquiry-cta"
+                >
+                  Get Bulk Quote Now
+                  <ChevronDown className="ml-2 h-5 w-5" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" data-testid="bulk-enquiry-modal">
+                <DialogHeader>
+                  <DialogTitle className="text-2xl font-bold text-center mb-2" data-testid="modal-title">
+                    Request Bulk Quote
+                  </DialogTitle>
+                  <p className="text-gray-600 text-center">
+                    Fill out this form and we'll get back to you with a customized quote within 24 hours.
+                  </p>
+                </DialogHeader>
+                
+                <Form {...bulkForm}>
+                  <form onSubmit={bulkForm.handleSubmit(handleBulkEnquiry)} className="space-y-6" data-testid="bulk-enquiry-form">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormField
+                        control={bulkForm.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Contact Person *</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="Enter contact person name" 
+                                {...field} 
+                                data-testid="input-contact-person"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={bulkForm.control}
+                        name="companyName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Company Name *</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="Enter company name" 
+                                {...field} 
+                                data-testid="input-company-name"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormField
+                        control={bulkForm.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email Address *</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="Enter email address" 
+                                type="email" 
+                                {...field} 
+                                data-testid="input-email"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={bulkForm.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Phone Number *</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="Enter phone number" 
+                                type="tel" 
+                                {...field} 
+                                data-testid="input-phone"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormField
+                        control={bulkForm.control}
+                        name="productInterest"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Product Interest *</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="e.g., Food & Beverages, Personal Care" 
+                                {...field} 
+                                data-testid="input-product-interest"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={bulkForm.control}
+                        name="quantity"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Required Quantity *</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="e.g., 1000 units monthly" 
+                                {...field} 
+                                data-testid="input-quantity"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <FormField
+                      control={bulkForm.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Additional Requirements</FormLabel>
+                          <FormControl>
+                            <Textarea 
+                              placeholder="Tell us about your specific requirements, delivery preferences, or any other details..."
+                              className="min-h-[100px]"
+                              {...field} 
+                              data-testid="input-message"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                      <Button 
+                        type="submit" 
+                        className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3" 
+                        disabled={bulkEnquiryMutation.isPending}
+                        data-testid="submit-bulk-enquiry"
+                      >
+                        {bulkEnquiryMutation.isPending ? "Submitting..." : "Get Custom Quote"}
+                      </Button>
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        onClick={() => setIsModalOpen(false)}
+                        className="sm:w-32"
+                        data-testid="cancel-bulk-enquiry"
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </form>
+                </Form>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </section>
