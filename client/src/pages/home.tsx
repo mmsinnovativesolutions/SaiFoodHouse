@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
-import { Search, Coffee, Package, ShoppingBag, Award, Clock, Users, Heart, Shield, Star } from "lucide-react";
+import { Search, Coffee, Package, ShoppingBag, Award, Clock, Users, Heart, Shield, Star, Truck, Building, HandHeart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { type Product } from "@shared/schema";
+
+// Import generated background images
+import productFlatlayBg from "@assets/generated_images/Food_beverage_product_flatlay_97becb28.png";
+import groceryShelveBg from "@assets/generated_images/Grocery_store_product_shelves_e2e5fcad.png";
+import abstractIconsBg from "@assets/generated_images/Abstract_food_beverage_icons_12ad5560.png";
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -41,11 +46,28 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6" data-testid="hero-title">
-              Food & Beverage Product Catalog
+              Sai Food House
             </h1>
-            <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-3xl mx-auto" data-testid="hero-subtitle">
-              Discover trusted brands and their products in one place.
+            <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto" data-testid="hero-subtitle">
+              Your Trusted Wholesale Partner for Food & Beverage Distribution
             </p>
+            <p className="text-lg mb-12 opacity-80 max-w-2xl mx-auto" data-testid="hero-description">
+              Serving retailers, restaurants, and institutions with quality products from trusted brands across India.
+            </p>
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Link href="/brands">
+                <Button className="px-8 py-4 bg-white text-black hover:bg-gray-100 transition-colors text-lg font-semibold rounded-lg shadow-lg" data-testid="cta-browse-brands">
+                  Browse Brands
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button className="px-8 py-4 bg-accent text-accent-foreground hover:bg-secondary transition-colors text-lg font-semibold rounded-lg shadow-lg border-2 border-white" data-testid="cta-bulk-enquiry">
+                  Bulk Enquiry
+                </Button>
+              </Link>
+            </div>
             
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto relative">
@@ -74,15 +96,19 @@ export default function Home() {
 
       {/* About Us Section */}
       <section className="py-20 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 dark:from-indigo-900/10 dark:via-gray-900 dark:to-cyan-900/10 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-3"
+          style={{ backgroundImage: `url(${productFlatlayBg})` }}
+        ></div>
         <div className="absolute inset-0 pattern-dots opacity-30"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
-              About Our Catalog
+              About Sai Food House
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Your trusted partner in discovering the finest food and beverage products from around the world. 
-              We bring together quality, variety, and convenience in one comprehensive platform.
+              Your dedicated wholesale partner specializing in food and beverage distribution across India. 
+              We connect trusted brands with retailers, restaurants, and institutions through reliable supply chain solutions.
             </p>
           </div>
 
@@ -92,9 +118,9 @@ export default function Home() {
                 <div className="w-16 h-16 bg-gradient-to-br from-rose-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                   <Heart className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4 text-rose-700 dark:text-rose-300">Quality First</h3>
+                <h3 className="text-xl font-semibold mb-4 text-rose-700 dark:text-rose-300">Quality Assurance</h3>
                 <p className="text-rose-600/80 dark:text-rose-400/80 leading-relaxed">
-                  We partner only with trusted brands and suppliers who share our commitment to quality and excellence in every product.
+                  We maintain strict quality standards and partner only with certified brands and suppliers who meet our rigorous quality requirements.
                 </p>
               </CardContent>
             </Card>
@@ -102,11 +128,11 @@ export default function Home() {
             <Card className="bg-gradient-to-br from-emerald-50 to-teal-100 dark:from-emerald-900/20 dark:to-teal-900/20 border-emerald-200 dark:border-emerald-800 hover:shadow-xl transition-all duration-300 hover:scale-105">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <Shield className="h-8 w-8 text-white" />
+                  <Truck className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4 text-emerald-700 dark:text-emerald-300">Trust & Reliability</h3>
+                <h3 className="text-xl font-semibold mb-4 text-emerald-700 dark:text-emerald-300">Reliable Distribution</h3>
                 <p className="text-emerald-600/80 dark:text-emerald-400/80 leading-relaxed">
-                  Built on transparency and reliability, our catalog provides accurate product information you can depend on for your business needs.
+                  Our extensive distribution network ensures timely delivery of products to your business location with complete transparency and tracking.
                 </p>
               </CardContent>
             </Card>
@@ -114,11 +140,11 @@ export default function Home() {
             <Card className="bg-gradient-to-br from-amber-50 to-orange-100 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200 dark:border-amber-800 hover:shadow-xl transition-all duration-300 hover:scale-105">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <Star className="h-8 w-8 text-white" />
+                  <HandHeart className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4 text-amber-700 dark:text-amber-300">Innovation</h3>
+                <h3 className="text-xl font-semibold mb-4 text-amber-700 dark:text-amber-300">Customer Success</h3>
                 <p className="text-amber-600/80 dark:text-amber-400/80 leading-relaxed">
-                  Continuously evolving our platform to provide the best search, filtering, and discovery experience for food and beverage products.
+                  Dedicated support team and flexible ordering solutions designed to help your business grow and succeed in the competitive market.
                 </p>
               </CardContent>
             </Card>
@@ -127,15 +153,15 @@ export default function Home() {
           <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-400/10 dark:to-purple-400/10 rounded-2xl p-8 md:p-12 border border-blue-200/50 dark:border-blue-800/50">
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-xl">
-                <Users className="h-10 w-10 text-white" />
+                <Building className="h-10 w-10 text-white" />
               </div>
               <div className="flex-1 text-center md:text-left">
                 <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">
-                  Serving Businesses Worldwide
+                  Serving Businesses Across India
                 </h3>
                 <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                  From small local stores to large retail chains, our comprehensive catalog serves businesses of all sizes. 
-                  We understand that having access to detailed product information is crucial for making informed purchasing decisions.
+                  From neighborhood grocery stores to large restaurant chains and institutional kitchens, Sai Food House provides 
+                  comprehensive wholesale solutions tailored to meet diverse business requirements and scale with your growth.
                 </p>
               </div>
             </div>
@@ -144,8 +170,13 @@ export default function Home() {
       </section>
 
       {/* Quick Stats */}
-      <section className="bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-900 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-900 py-16 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-8 dark:opacity-5"
+          style={{ backgroundImage: `url(${groceryShelveBg})` }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50/80 to-blue-50/80 dark:from-slate-900/80 dark:to-blue-900/80"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <Card className="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 border-orange-200 dark:border-orange-800 hover:shadow-xl transition-all duration-300 hover:scale-105">
               <CardContent className="p-8">
@@ -155,7 +186,7 @@ export default function Home() {
                 <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2" data-testid="total-brands">
                   {totalBrands}+
                 </div>
-                <div className="text-orange-700/80 dark:text-orange-300/80 font-medium">Trusted Brands</div>
+                <div className="text-orange-700/80 dark:text-orange-300/80 font-medium">Partner Brands</div>
               </CardContent>
             </Card>
             <Card className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-800 hover:shadow-xl transition-all duration-300 hover:scale-105">
@@ -175,7 +206,7 @@ export default function Home() {
                   <Clock className="h-8 w-8 text-white" />
                 </div>
                 <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">24/7</div>
-                <div className="text-purple-700/80 dark:text-purple-300/80 font-medium">Catalog Access</div>
+                <div className="text-purple-700/80 dark:text-purple-300/80 font-medium">Order Support</div>
               </CardContent>
             </Card>
           </div>
@@ -183,14 +214,19 @@ export default function Home() {
       </section>
 
       {/* Quick Access */}
-      <section className="py-16 bg-gradient-to-r from-blue-50 via-white to-green-50 dark:from-blue-900/10 dark:via-gray-900 dark:to-green-900/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-gradient-to-r from-blue-50 via-white to-green-50 dark:from-blue-900/10 dark:via-gray-900 dark:to-green-900/10 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-6 dark:opacity-4"
+          style={{ backgroundImage: `url(${abstractIconsBg})` }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-50/70 via-white/70 to-green-50/70 dark:from-blue-900/70 dark:via-gray-900/70 dark:to-green-900/70"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-              Explore Our Catalog
+              Explore Our Product Range
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Browse through our comprehensive collection of food and beverage products.
+              Discover our comprehensive collection of food and beverage products from trusted brands.
             </p>
           </div>
           
@@ -203,7 +239,7 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-semibold mb-2 text-blue-700 dark:text-blue-300">Browse Brands</h3>
                   <p className="text-blue-600/80 dark:text-blue-400/80">
-                    Explore our collection of {totalBrands} trusted brands
+                    Explore our collection of {totalBrands} partner brands
                   </p>
                 </CardContent>
               </Card>
