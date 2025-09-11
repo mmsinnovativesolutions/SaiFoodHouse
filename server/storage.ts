@@ -13,6 +13,7 @@ export interface IStorage {
   // Bulk operations for Excel import
   clearAllProducts(): Promise<void>;
   createProducts(products: InsertProduct[]): Promise<Product[]>;
+  replaceAllProducts(products: InsertProduct[]): Promise<Product[]>;
   
   // Contacts
   createContact(contact: InsertContact): Promise<Contact>;
@@ -67,6 +68,24 @@ export class DatabaseStorage implements IStorage {
       .values(insertProducts)
       .returning();
     return createdProducts;
+  }
+
+  // Atomic replace operation for Excel imports
+  async replaceAllProducts(insertProducts: InsertProduct[]): Promise<Product[]> {
+    return await db.transaction(async (tx) => {
+      // Delete all existing products
+      await tx.delete(products);
+      
+      // Insert new products
+      if (insertProducts.length === 0) return [];
+      
+      const createdProducts = await tx
+        .insert(products)
+        .values(insertProducts)
+        .returning();
+      
+      return createdProducts;
+    });
   }
 
   async createContact(insertContact: InsertContact): Promise<Contact> {

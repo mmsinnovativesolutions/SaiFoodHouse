@@ -85,8 +85,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Upload Excel file and import products
-  app.post("/api/admin/upload-excel", upload.single('excel'), async (req, res) => {
+  // Simple admin authentication middleware
+  const requireAdminAuth = (req: any, res: any, next: any) => {
+    const adminToken = req.headers['x-admin-token'] || req.query.adminToken;
+    const expectedToken = process.env.ADMIN_TOKEN || 'admin123'; // Default for development
+    
+    if (adminToken !== expectedToken) {
+      return res.status(401).json({ message: "Unauthorized. Admin access required." });
+    }
+    next();
+  };
+
+  // Upload Excel file and import products (with authentication)
+  app.post("/api/admin/upload-excel", requireAdminAuth, upload.single('excel'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ message: "No Excel file uploaded" });
@@ -135,9 +146,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      // Clear existing products and insert new ones
-      await storage.clearAllProducts();
-      const createdProducts = await storage.createProducts(products);
+      // Atomically replace all products (transaction ensures data safety)
+      const createdProducts = await storage.replaceAllProducts(products);
       
       res.status(200).json({
         message: `Successfully imported ${createdProducts.length} products`,
