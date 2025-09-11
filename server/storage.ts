@@ -10,6 +10,10 @@ export interface IStorage {
   searchProducts(query: string): Promise<Product[]>;
   getAllBrands(): Promise<{ brand: string; productCount: number }[]>;
   
+  // Bulk operations for Excel import
+  clearAllProducts(): Promise<void>;
+  createProducts(products: InsertProduct[]): Promise<Product[]>;
+  
   // Contacts
   createContact(contact: InsertContact): Promise<Contact>;
 }
@@ -49,6 +53,20 @@ export class DatabaseStorage implements IStorage {
       .orderBy(products.brand);
     
     return result;
+  }
+
+  async clearAllProducts(): Promise<void> {
+    await db.delete(products);
+  }
+
+  async createProducts(insertProducts: InsertProduct[]): Promise<Product[]> {
+    if (insertProducts.length === 0) return [];
+    
+    const createdProducts = await db
+      .insert(products)
+      .values(insertProducts)
+      .returning();
+    return createdProducts;
   }
 
   async createContact(insertContact: InsertContact): Promise<Contact> {

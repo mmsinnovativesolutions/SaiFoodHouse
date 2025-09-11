@@ -12,6 +12,7 @@ export default function Navigation() {
     { path: "/brands", label: "Brands" },
     { path: "/products", label: "Products" },
     { path: "/contact", label: "Contact" },
+    { path: "/admin", label: "Admin" },
   ];
 
   const isActive = (path: string) => {
