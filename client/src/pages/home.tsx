@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
-import { Search, Coffee, Package, ShoppingBag, Award, Clock, Users, Heart, Shield, Star, Truck, Building, HandHeart, Target, Eye } from "lucide-react";
+import { Search, Coffee, Package, ShoppingBag, Award, Clock, Users, Heart, Shield, Star, Truck, Building, HandHeart, Target, Eye, Map, MapPin, Calendar, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -254,6 +254,239 @@ export default function Home() {
                   <h4 className="text-lg font-semibold mb-2 text-rose-700 dark:text-rose-300">Partnership</h4>
                   <p className="text-rose-600/80 dark:text-rose-400/80">Building lasting relationships that drive mutual success</p>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Map Coverage Section */}
+      <section className="py-20 bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 dark:from-teal-900/10 dark:via-cyan-900/10 dark:to-blue-900/10 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-3"
+          style={{ backgroundImage: `url(${groceryShelveBg})` }}
+        ></div>
+        <div className="absolute inset-0 pattern-dots opacity-30"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent" data-testid="coverage-title">
+              Our Reach Across India
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Comprehensive distribution network spanning multiple states, connecting thousands of retailers and businesses nationwide.
+            </p>
+          </div>
+
+          {/* Coverage Map Visual */}
+          <div className="mb-16">
+            <Card className="bg-gradient-to-br from-indigo-50 to-blue-100 dark:from-indigo-900/30 dark:to-blue-900/30 border-indigo-200 dark:border-indigo-700 overflow-hidden" data-testid="coverage-map-card">
+              <CardContent className="p-12">
+                <div className="text-center mb-8">
+                  <div className="w-24 h-24 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                    <Map className="h-12 w-12 text-white" />
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">
+                    Serving Businesses Nationwide
+                  </h3>
+                </div>
+                
+                {/* Regional Coverage Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <div className="text-center p-4 bg-gradient-to-br from-red-50 to-pink-100 dark:from-red-900/30 dark:to-pink-900/30 rounded-xl border border-red-200 dark:border-red-800" data-testid="region-north">
+                    <div className="w-12 h-12 bg-gradient-to-br from-red-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <MapPin className="h-6 w-6 text-white" />
+                    </div>
+                    <h4 className="text-lg font-semibold text-red-700 dark:text-red-300 mb-1">Northern India</h4>
+                    <p className="text-sm text-red-600/80 dark:text-red-400/80">Delhi, Punjab, Haryana, UP</p>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 rounded-xl border border-green-200 dark:border-green-800" data-testid="region-west">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <MapPin className="h-6 w-6 text-white" />
+                    </div>
+                    <h4 className="text-lg font-semibold text-green-700 dark:text-green-300 mb-1">Western India</h4>
+                    <p className="text-sm text-green-600/80 dark:text-green-400/80">Maharashtra, Gujarat, Rajasthan</p>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-gradient-to-br from-orange-50 to-amber-100 dark:from-orange-900/30 dark:to-amber-900/30 rounded-xl border border-orange-200 dark:border-orange-800" data-testid="region-south">
+                    <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <MapPin className="h-6 w-6 text-white" />
+                    </div>
+                    <h4 className="text-lg font-semibold text-orange-700 dark:text-orange-300 mb-1">Southern India</h4>
+                    <p className="text-sm text-orange-600/80 dark:text-orange-400/80">Karnataka, Tamil Nadu, AP</p>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-violet-100 dark:from-purple-900/30 dark:to-violet-900/30 rounded-xl border border-purple-200 dark:border-purple-800" data-testid="region-east">
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-violet-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <MapPin className="h-6 w-6 text-white" />
+                    </div>
+                    <h4 className="text-lg font-semibold text-purple-700 dark:text-purple-300 mb-1">Eastern India</h4>
+                    <p className="text-sm text-purple-600/80 dark:text-purple-400/80">West Bengal, Odisha, Bihar</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Coverage Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="bg-gradient-to-br from-cyan-50 to-teal-100 dark:from-cyan-900/20 dark:to-teal-900/20 border-cyan-200 dark:border-cyan-800 hover:shadow-xl transition-all duration-300 hover:scale-105" data-testid="stat-states">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <Map className="h-8 w-8 text-white" />
+                </div>
+                <div className="text-3xl font-bold text-cyan-600 dark:text-cyan-400 mb-2">25+</div>
+                <div className="text-cyan-700/80 dark:text-cyan-300/80 font-medium">States Covered</div>
+                <p className="text-sm text-cyan-600/70 dark:text-cyan-400/70 mt-2">Expanding coverage across India</p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200 dark:border-blue-800 hover:shadow-xl transition-all duration-300 hover:scale-105" data-testid="stat-cities">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <Building className="h-8 w-8 text-white" />
+                </div>
+                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">500+</div>
+                <div className="text-blue-700/80 dark:text-blue-300/80 font-medium">Cities Served</div>
+                <p className="text-sm text-blue-600/70 dark:text-blue-400/70 mt-2">Urban and rural reach</p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-indigo-50 to-purple-100 dark:from-indigo-900/20 dark:to-purple-900/20 border-indigo-200 dark:border-indigo-800 hover:shadow-xl transition-all duration-300 hover:scale-105" data-testid="stat-partners">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <Truck className="h-8 w-8 text-white" />
+                </div>
+                <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">10,000+</div>
+                <div className="text-indigo-700/80 dark:text-indigo-300/80 font-medium">Retail Partners</div>
+                <p className="text-sm text-indigo-600/70 dark:text-indigo-400/70 mt-2">Trusted business network</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Company Journey Section */}
+      <section className="py-20 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 dark:from-emerald-900/10 dark:via-green-900/10 dark:to-teal-900/10 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-3"
+          style={{ backgroundImage: `url(${productFlatlayBg})` }}
+        ></div>
+        <div className="absolute inset-0 pattern-dots opacity-20"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent" data-testid="journey-title">
+              Our Journey
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              From a small wholesale operation to India's trusted food & beverage distribution network.
+            </p>
+          </div>
+
+          {/* Timeline */}
+          <div className="relative">
+            {/* Timeline Line */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-emerald-400 to-teal-500 rounded-full hidden md:block"></div>
+            
+            <div className="space-y-12">
+              {/* 2015 - Founded */}
+              <div className="flex flex-col md:flex-row items-center gap-8" data-testid="milestone-2015">
+                <div className="flex-1 md:text-right">
+                  <Card className="bg-gradient-to-br from-emerald-50 to-green-100 dark:from-emerald-900/30 dark:to-green-900/30 border-emerald-200 dark:border-emerald-700 hover:shadow-xl transition-all duration-300">
+                    <CardContent className="p-6">
+                      <div className="flex items-center md:justify-end gap-3 mb-3">
+                        <Calendar className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                        <span className="text-lg font-bold text-emerald-700 dark:text-emerald-300">2015</span>
+                      </div>
+                      <h3 className="text-xl font-semibold text-emerald-800 dark:text-emerald-200 mb-2">Founded Sai Food House</h3>
+                      <p className="text-emerald-700/80 dark:text-emerald-300/80">Started as a local food distribution business with a vision to serve quality products.</p>
+                    </CardContent>
+                  </Card>
+                </div>
+                <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-green-500 rounded-full flex items-center justify-center shadow-xl border-4 border-white dark:border-gray-800 z-10">
+                  <Building className="h-8 w-8 text-white" />
+                </div>
+                <div className="flex-1"></div>
+              </div>
+
+              {/* 2017 - Multi-State Expansion */}
+              <div className="flex flex-col md:flex-row items-center gap-8" data-testid="milestone-2017">
+                <div className="flex-1"></div>
+                <div className="w-16 h-16 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-full flex items-center justify-center shadow-xl border-4 border-white dark:border-gray-800 z-10">
+                  <TrendingUp className="h-8 w-8 text-white" />
+                </div>
+                <div className="flex-1 md:text-left">
+                  <Card className="bg-gradient-to-br from-teal-50 to-cyan-100 dark:from-teal-900/30 dark:to-cyan-900/30 border-teal-200 dark:border-teal-700 hover:shadow-xl transition-all duration-300">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Calendar className="h-5 w-5 text-teal-600 dark:text-teal-400" />
+                        <span className="text-lg font-bold text-teal-700 dark:text-teal-300">2017</span>
+                      </div>
+                      <h3 className="text-xl font-semibold text-teal-800 dark:text-teal-200 mb-2">Multi-State Expansion</h3>
+                      <p className="text-teal-700/80 dark:text-teal-300/80">Expanded operations to 5 states, establishing regional distribution centers.</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+
+              {/* 2019 - Product Portfolio Growth */}
+              <div className="flex flex-col md:flex-row items-center gap-8" data-testid="milestone-2019">
+                <div className="flex-1 md:text-right">
+                  <Card className="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 border-blue-200 dark:border-blue-700 hover:shadow-xl transition-all duration-300">
+                    <CardContent className="p-6">
+                      <div className="flex items-center md:justify-end gap-3 mb-3">
+                        <Calendar className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                        <span className="text-lg font-bold text-blue-700 dark:text-blue-300">2019</span>
+                      </div>
+                      <h3 className="text-xl font-semibold text-blue-800 dark:text-blue-200 mb-2">1000+ Products Milestone</h3>
+                      <p className="text-blue-700/80 dark:text-blue-300/80">Reached 1000+ products across diverse food and beverage categories.</p>
+                    </CardContent>
+                  </Card>
+                </div>
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center shadow-xl border-4 border-white dark:border-gray-800 z-10">
+                  <Package className="h-8 w-8 text-white" />
+                </div>
+                <div className="flex-1"></div>
+              </div>
+
+              {/* 2021 - Brand Partnership Growth */}
+              <div className="flex flex-col md:flex-row items-center gap-8" data-testid="milestone-2021">
+                <div className="flex-1"></div>
+                <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center shadow-xl border-4 border-white dark:border-gray-800 z-10">
+                  <Award className="h-8 w-8 text-white" />
+                </div>
+                <div className="flex-1 md:text-left">
+                  <Card className="bg-gradient-to-br from-purple-50 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 border-purple-200 dark:border-purple-700 hover:shadow-xl transition-all duration-300">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Calendar className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                        <span className="text-lg font-bold text-purple-700 dark:text-purple-300">2021</span>
+                      </div>
+                      <h3 className="text-xl font-semibold text-purple-800 dark:text-purple-200 mb-2">500+ Brand Partners</h3>
+                      <p className="text-purple-700/80 dark:text-purple-300/80">Achieved partnerships with 500+ trusted brands and manufacturers.</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+
+              {/* 2024 - Pan-India Presence */}
+              <div className="flex flex-col md:flex-row items-center gap-8" data-testid="milestone-2024">
+                <div className="flex-1 md:text-right">
+                  <Card className="bg-gradient-to-br from-orange-50 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 border-orange-200 dark:border-orange-700 hover:shadow-xl transition-all duration-300">
+                    <CardContent className="p-6">
+                      <div className="flex items-center md:justify-end gap-3 mb-3">
+                        <Calendar className="h-5 w-5 text-orange-600 dark:text-orange-400" />
+                        <span className="text-lg font-bold text-orange-700 dark:text-orange-300">2024</span>
+                      </div>
+                      <h3 className="text-xl font-semibold text-orange-800 dark:text-orange-200 mb-2">Pan-India Presence</h3>
+                      <p className="text-orange-700/80 dark:text-orange-300/80">Established nationwide distribution network serving 25+ states and 500+ cities.</p>
+                    </CardContent>
+                  </Card>
+                </div>
+                <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center shadow-xl border-4 border-white dark:border-gray-800 z-10">
+                  <Map className="h-8 w-8 text-white" />
+                </div>
+                <div className="flex-1"></div>
               </div>
             </div>
           </div>
