@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
-import { Search, Coffee, Package, ShoppingBag, Award, Clock, Users } from "lucide-react";
+import { Search, Coffee, Package, ShoppingBag, Award, Clock, Users, Heart, Shield, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -66,6 +66,77 @@ export default function Home() {
                 >
                   <Search className="h-5 w-5" />
                 </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Us Section */}
+      <section className="py-20 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 dark:from-indigo-900/10 dark:via-gray-900 dark:to-cyan-900/10 relative overflow-hidden">
+        <div className="absolute inset-0 pattern-dots opacity-30"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
+              About Our Catalog
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Your trusted partner in discovering the finest food and beverage products from around the world. 
+              We bring together quality, variety, and convenience in one comprehensive platform.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <Card className="bg-gradient-to-br from-rose-50 to-pink-100 dark:from-rose-900/20 dark:to-pink-900/20 border-rose-200 dark:border-rose-800 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-rose-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <Heart className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-rose-700 dark:text-rose-300">Quality First</h3>
+                <p className="text-rose-600/80 dark:text-rose-400/80 leading-relaxed">
+                  We partner only with trusted brands and suppliers who share our commitment to quality and excellence in every product.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-emerald-50 to-teal-100 dark:from-emerald-900/20 dark:to-teal-900/20 border-emerald-200 dark:border-emerald-800 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <Shield className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-emerald-700 dark:text-emerald-300">Trust & Reliability</h3>
+                <p className="text-emerald-600/80 dark:text-emerald-400/80 leading-relaxed">
+                  Built on transparency and reliability, our catalog provides accurate product information you can depend on for your business needs.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-amber-50 to-orange-100 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200 dark:border-amber-800 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <Star className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-amber-700 dark:text-amber-300">Innovation</h3>
+                <p className="text-amber-600/80 dark:text-amber-400/80 leading-relaxed">
+                  Continuously evolving our platform to provide the best search, filtering, and discovery experience for food and beverage products.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-400/10 dark:to-purple-400/10 rounded-2xl p-8 md:p-12 border border-blue-200/50 dark:border-blue-800/50">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-xl">
+                <Users className="h-10 w-10 text-white" />
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+                  Serving Businesses Worldwide
+                </h3>
+                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                  From small local stores to large retail chains, our comprehensive catalog serves businesses of all sizes. 
+                  We understand that having access to detailed product information is crucial for making informed purchasing decisions.
+                </p>
               </div>
             </div>
           </div>
