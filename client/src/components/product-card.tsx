@@ -112,7 +112,7 @@ export default function ProductCard({ product, showQuickActions = true, compact 
   if (compact) {
     return (
       <Card 
-        className="group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer border-0 bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 hover:from-slate-50 hover:to-slate-100 dark:hover:from-slate-700 dark:hover:to-slate-800" 
+        className="border-0 bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900" 
         data-testid={`product-card-${product.id}`}
       >
         <CardContent className="p-3">
@@ -124,13 +124,13 @@ export default function ProductCard({ product, showQuickActions = true, compact 
             >
               {product.brand}
             </Badge>
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <Button size="sm" variant="ghost" className="h-6 w-6 p-0 hover:bg-primary/10">
+            <div>
+              <Button size="sm" variant="ghost" className="h-6 w-6 p-0">
                 <Eye className="h-3 w-3" />
               </Button>
             </div>
           </div>
-          <h4 className="font-semibold mb-1 text-sm leading-tight line-clamp-2 group-hover:text-primary transition-colors" data-testid={`product-name-${product.id}`}>
+          <h4 className="font-semibold mb-1 text-sm leading-tight line-clamp-2" data-testid={`product-name-${product.id}`}>
             {product.productName}
           </h4>
           <div className="flex items-center justify-between">
@@ -149,7 +149,7 @@ export default function ProductCard({ product, showQuickActions = true, compact 
 
   return (
     <Card 
-      className={`group hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 cursor-pointer border-0 overflow-hidden bg-gradient-to-br ${brandGradient} hover:shadow-purple-500/10 dark:hover:shadow-purple-400/10 relative`}
+      className={`border-0 overflow-hidden bg-gradient-to-br ${brandGradient} relative`}
       data-testid={`product-card-${product.id}`}
     >
       <CardContent className="p-0 relative z-10">
@@ -157,7 +157,7 @@ export default function ProductCard({ product, showQuickActions = true, compact 
         <div className="bg-gradient-to-r from-white/80 to-white/60 dark:from-slate-800/80 dark:to-slate-800/60 backdrop-blur-sm p-4 border-b border-white/50 dark:border-slate-700/50">
           <div className="flex items-start justify-between mb-3">
             <Badge 
-              className="bg-gradient-to-r from-slate-800 to-slate-700 dark:from-slate-200 dark:to-slate-100 text-white dark:text-slate-800 border-0 font-semibold shadow-lg hover:shadow-xl transition-shadow"
+              className="bg-gradient-to-r from-slate-800 to-slate-700 dark:from-slate-200 dark:to-slate-100 text-white dark:text-slate-800 border-0 font-semibold shadow-lg"
               data-testid={`product-brand-${product.id}`}
             >
               <span className="mr-1">{getBrandIcon(product)}</span>
@@ -172,11 +172,11 @@ export default function ProductCard({ product, showQuickActions = true, compact 
             </Badge>
           </div>
           
-          <h4 className="font-bold text-lg leading-tight mb-2 text-slate-800 dark:text-slate-100 group-hover:text-slate-900 dark:group-hover:text-white transition-colors line-clamp-2" data-testid={`product-name-${product.id}`}>
+          <h4 className="font-bold text-lg leading-tight mb-2 text-slate-800 dark:text-slate-100 line-clamp-2" data-testid={`product-name-${product.id}`}>
             {product.productName}
           </h4>
           
-          <div className="flex items-center text-muted-foreground group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
+          <div className="flex items-center text-muted-foreground">
             <Package className="h-4 w-4 mr-2 text-primary" />
             <span className="text-sm font-medium" data-testid={`product-weight-${product.id}`}>
               {product.weightPack}
@@ -192,7 +192,7 @@ export default function ProductCard({ product, showQuickActions = true, compact 
                 size="sm" 
                 variant="outline" 
                 onClick={handleViewDetails}
-                className="px-6 bg-white/80 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-700 border-slate-200 dark:border-slate-600 font-semibold transition-all duration-200 hover:scale-105"
+                className="px-6 bg-white/80 dark:bg-slate-800/80 border-slate-200 dark:border-slate-600 font-semibold"
                 data-testid={`product-view-details-${product.id}`}
               >
                 <FileText className="h-4 w-4 mr-1" />
@@ -210,8 +210,6 @@ export default function ProductCard({ product, showQuickActions = true, compact 
           </div>
         )}
 
-        {/* Hover Effect Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       </CardContent>
     </Card>
   );
@@ -232,7 +230,7 @@ export function ProductCardList({ product }: { product: Product }) {
 
   return (
     <Card 
-      className={`group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r ${brandGradient} hover:scale-[1.01]`}
+      className={`border-0 bg-gradient-to-r ${brandGradient}`}
       data-testid={`product-list-card-${product.id}`}
     >
       <CardContent className="p-4">
@@ -265,7 +263,7 @@ export function ProductCardList({ product }: { product: Product }) {
               size="sm" 
               variant="outline" 
               onClick={handleViewDetails}
-              className="bg-white/80 hover:bg-white"
+              className="bg-white/80"
               data-testid={`product-list-details-${product.id}`}
             >
               <FileText className="h-4 w-4 mr-1" />
