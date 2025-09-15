@@ -2,7 +2,7 @@ import { type Product } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Package, ShoppingCart, Star, Award, Eye, Plus, Coffee, Heart, Cookie, Globe, FileText, MessageCircle } from "lucide-react";
+import { Package, ShoppingCart, Star, Award, Eye, Plus, Coffee, Heart, Cookie, Globe, FileText } from "lucide-react";
 import { 
   SiCocacola, 
   SiMcdonalds,
@@ -109,13 +109,6 @@ export default function ProductCard({ product, showQuickActions = true, compact 
     });
   };
 
-  const handleRequestQuote = () => {
-    toast({
-      title: "Quote Requested",
-      description: `Quote request sent for ${product.productName}. We'll contact you shortly with pricing details.`,
-    });
-  };
-
   if (compact) {
     return (
       <Card 
@@ -194,25 +187,16 @@ export default function ProductCard({ product, showQuickActions = true, compact 
         {/* Card Footer with Actions */}
         {showQuickActions && (
           <div className="p-4 bg-gradient-to-t from-white/90 to-white/70 dark:from-slate-900/90 dark:to-slate-800/70 backdrop-blur-sm">
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center justify-center gap-2">
               <Button 
                 size="sm" 
                 variant="outline" 
                 onClick={handleViewDetails}
-                className="flex-1 bg-white/80 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-700 border-slate-200 dark:border-slate-600 font-semibold transition-all duration-200 hover:scale-105"
+                className="px-6 bg-white/80 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-700 border-slate-200 dark:border-slate-600 font-semibold transition-all duration-200 hover:scale-105"
                 data-testid={`product-view-details-${product.id}`}
               >
                 <FileText className="h-4 w-4 mr-1" />
                 Details
-              </Button>
-              <Button 
-                size="sm" 
-                onClick={handleRequestQuote}
-                className="flex-1 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
-                data-testid={`product-request-quote-${product.id}`}
-              >
-                <MessageCircle className="h-4 w-4 mr-1" />
-                Quote
               </Button>
             </div>
             
@@ -243,13 +227,6 @@ export function ProductCardList({ product }: { product: Product }) {
     toast({
       title: "Product Details",
       description: `Viewing details for ${product.productName} from ${product.brand}. Weight/Pack: ${product.weightPack}`,
-    });
-  };
-
-  const handleRequestQuote = () => {
-    toast({
-      title: "Quote Requested",
-      description: `Quote request sent for ${product.productName}. We'll contact you shortly with pricing details.`,
     });
   };
 
@@ -292,16 +269,7 @@ export function ProductCardList({ product }: { product: Product }) {
               data-testid={`product-list-details-${product.id}`}
             >
               <FileText className="h-4 w-4 mr-1" />
-              View
-            </Button>
-            <Button 
-              size="sm" 
-              onClick={handleRequestQuote}
-              className="bg-primary hover:bg-primary/90"
-              data-testid={`product-list-quote-${product.id}`}
-            >
-              <MessageCircle className="h-4 w-4 mr-1" />
-              Quote
+              View Details
             </Button>
           </div>
         </div>
