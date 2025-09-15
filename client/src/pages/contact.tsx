@@ -118,109 +118,6 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Multiple Contact Methods Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-900/10 dark:via-indigo-900/10 dark:to-purple-900/10 relative overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-3"
-          style={{ backgroundImage: `url(${abstractIconsBg})` }}
-        ></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" data-testid="contact-methods-title">
-              Connect With Our Teams
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Different teams for different needs - reach out to the right department for faster assistance.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Sales & Orders */}
-            <Card className="bg-gradient-to-br from-emerald-50 to-teal-100 dark:from-emerald-900/20 dark:to-teal-900/20 border-emerald-200 dark:border-emerald-800 hover:shadow-xl transition-all duration-300 hover:scale-105" data-testid="contact-sales">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <ShoppingCart className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-4 text-emerald-700 dark:text-emerald-300">Sales & Orders</h3>
-                <p className="text-emerald-600/80 dark:text-emerald-400/80 mb-4 text-sm leading-relaxed">
-                  New orders, pricing inquiries, product availability
-                </p>
-                <div className="space-y-2 text-sm">
-                  <p className="flex items-center justify-center text-emerald-700 dark:text-emerald-300">
-                    <Mail className="h-4 w-4 mr-2" /> sales@saifoodhouse.com
-                  </p>
-                  <p className="flex items-center justify-center text-emerald-700 dark:text-emerald-300">
-                    <Phone className="h-4 w-4 mr-2" /> +91 98765 43210
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Customer Support */}
-            <Card className="bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-900/20 border-blue-200 dark:border-blue-800 hover:shadow-xl transition-all duration-300 hover:scale-105" data-testid="contact-support">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <HeadphonesIcon className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-4 text-blue-700 dark:text-blue-300">Customer Support</h3>
-                <p className="text-blue-600/80 dark:text-blue-400/80 mb-4 text-sm leading-relaxed">
-                  Order tracking, delivery issues, account management
-                </p>
-                <div className="space-y-2 text-sm">
-                  <p className="flex items-center justify-center text-blue-700 dark:text-blue-300">
-                    <Mail className="h-4 w-4 mr-2" /> support@saifoodhouse.com
-                  </p>
-                  <p className="flex items-center justify-center text-blue-700 dark:text-blue-300">
-                    <Phone className="h-4 w-4 mr-2" /> +91 98765 43211
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Partnerships */}
-            <Card className="bg-gradient-to-br from-purple-50 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-800 hover:shadow-xl transition-all duration-300 hover:scale-105" data-testid="contact-partnerships">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <Handshake className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-4 text-purple-700 dark:text-purple-300">Partnerships</h3>
-                <p className="text-purple-600/80 dark:text-purple-400/80 mb-4 text-sm leading-relaxed">
-                  Brand partnerships, supplier onboarding, collaborations
-                </p>
-                <div className="space-y-2 text-sm">
-                  <p className="flex items-center justify-center text-purple-700 dark:text-purple-300">
-                    <Mail className="h-4 w-4 mr-2" /> partnerships@saifoodhouse.com
-                  </p>
-                  <p className="flex items-center justify-center text-purple-700 dark:text-purple-300">
-                    <Phone className="h-4 w-4 mr-2" /> +91 98765 43212
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Bulk Orders */}
-            <Card className="bg-gradient-to-br from-amber-50 to-orange-100 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200 dark:border-amber-800 hover:shadow-xl transition-all duration-300 hover:scale-105" data-testid="contact-bulk">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <Package className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-4 text-amber-700 dark:text-amber-300">Bulk Orders</h3>
-                <p className="text-amber-600/80 dark:text-amber-400/80 mb-4 text-sm leading-relaxed">
-                  Large volume orders, institutional sales, custom pricing
-                </p>
-                <div className="space-y-2 text-sm">
-                  <p className="flex items-center justify-center text-amber-700 dark:text-amber-300">
-                    <Mail className="h-4 w-4 mr-2" /> bulk@saifoodhouse.com
-                  </p>
-                  <p className="flex items-center justify-center text-amber-700 dark:text-amber-300">
-                    <Phone className="h-4 w-4 mr-2" /> +91 98765 43213
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* Main Contact Form and Information */}
       <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-blue-900/10 relative">
@@ -421,7 +318,7 @@ export default function Contact() {
                       </div>
                       <div>
                         <p className="font-semibold text-gray-800 dark:text-gray-200">Phone</p>
-                        <p className="text-green-600 dark:text-green-400">+91 98765 43200</p>
+                        <p className="text-green-600 dark:text-green-400">+91 85888 24881</p>
                         <p className="text-sm text-gray-500 dark:text-gray-400">Mon-Sat: 9:00 AM - 7:00 PM</p>
                       </div>
                     </div>
@@ -432,10 +329,9 @@ export default function Contact() {
                       <div>
                         <p className="font-semibold text-gray-800 dark:text-gray-200">Address</p>
                         <p className="text-gray-600 dark:text-gray-400">
-                          Sai Food House Pvt. Ltd.<br />
-                          Plot No. 45, Food Processing Park<br />
-                          Sector 18, Gurgaon - 122015<br />
-                          Haryana, India
+                          Sai Food House<br />
+                          82, Chauhan Market Rd, C Block<br />
+                          Sector 53, Noida, Uttar Pradesh 201307<br />
                         </p>
                       </div>
                     </div>
@@ -483,22 +379,8 @@ export default function Contact() {
                     <div className="flex items-center space-x-3">
                       <CheckCircle className="h-5 w-5 text-green-600" />
                       <div>
-                        <p className="font-semibold text-amber-800 dark:text-amber-200">FSSAI Licensed</p>
-                        <p className="text-sm text-amber-600 dark:text-amber-400">License No: 12345678901234</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <CheckCircle className="h-5 w-5 text-green-600" />
-                      <div>
                         <p className="font-semibold text-amber-800 dark:text-amber-200">GST Registered</p>
-                        <p className="text-sm text-amber-600 dark:text-amber-400">GSTIN: 06AABCS1234A1Z5</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <CheckCircle className="h-5 w-5 text-green-600" />
-                      <div>
-                        <p className="font-semibold text-amber-800 dark:text-amber-200">ISO 22000:2018 Certified</p>
-                        <p className="text-sm text-amber-600 dark:text-amber-400">Food Safety Management</p>
+                        <p className="text-sm text-amber-600 dark:text-amber-400">GSTIN: 09ABMFS8219G1ZP</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
