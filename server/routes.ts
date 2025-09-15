@@ -23,13 +23,38 @@ const upload = multer({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Health check endpoint for debugging
+  app.get("/api/health", async (_req, res) => {
+    try {
+      const productCount = await storage.getAllProducts().then(products => products.length);
+      const brandCount = await storage.getAllBrands().then(brands => brands.length);
+      res.json({ 
+        status: "ok",
+        database: "connected",
+        productCount,
+        brandCount,
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'development'
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        status: "error", 
+        database: "disconnected",
+        error: error instanceof Error ? error.message : 'Unknown error',
+        environment: process.env.NODE_ENV || 'development'
+      });
+    }
+  });
+
   // Get all products
   app.get("/api/products", async (_req, res) => {
     try {
       const products = await storage.getAllProducts();
+      console.log(`[API] Fetched ${products.length} products`);
       res.json(products);
     } catch (error) {
-      res.status(500).json({ message: "Failed to fetch products" });
+      console.error('[API] Failed to fetch products:', error);
+      res.status(500).json({ message: "Failed to fetch products", error: error instanceof Error ? error.message : 'Unknown error' });
     }
   });
 
@@ -62,9 +87,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/brands", async (_req, res) => {
     try {
       const brands = await storage.getAllBrands();
+      console.log(`[API] Fetched ${brands.length} brands`);
       res.json(brands);
     } catch (error) {
-      res.status(500).json({ message: "Failed to fetch brands" });
+      console.error('[API] Failed to fetch brands:', error);
+      res.status(500).json({ message: "Failed to fetch brands", error: error instanceof Error ? error.message : 'Unknown error' });
     }
   });
 

@@ -98,6 +98,7 @@ export class DatabaseStorage implements IStorage {
 
   // Method to initialize sample data in database
   async initializeSampleData(): Promise<void> {
+    console.log("[Storage] Initializing sample data...");
     const sampleProducts: InsertProduct[] = [
       // Veeba Products
       { brand: "Veeba", productName: "Mint Mayo", weightPack: "255 Gm" },
@@ -157,9 +158,14 @@ export class DatabaseStorage implements IStorage {
 
     // Check if data already exists
     const existingProducts = await this.getAllProducts();
+    console.log(`[Storage] Found ${existingProducts.length} existing products`);
     if (existingProducts.length === 0) {
+      console.log("[Storage] Inserting sample data...");
       // Insert sample data
       await db.insert(products).values(sampleProducts);
+      console.log(`[Storage] Successfully inserted ${sampleProducts.length} sample products`);
+    } else {
+      console.log("[Storage] Sample data already exists, skipping initialization");
     }
   }
 }
