@@ -22,6 +22,11 @@ import productFlatlayBg from "@assets/generated_images/Food_beverage_product_fla
 import groceryShelveBg from "@assets/generated_images/Grocery_store_product_shelves_e2e5fcad.png";
 import abstractIconsBg from "@assets/generated_images/Abstract_food_beverage_icons_12ad5560.png";
 
+// Import luxury brand showcase images
+import luxeBrandLogos from "@assets/20250915_1832_Luxe Brand Logo Display_simple_compose_01k56qdz01fc5vt2tmzz9hhyf0_1757945511761.png";
+import luxuryCulinaryRibbon from "@assets/20250915_1839_Luxury Culinary Ribbon_simple_compose_01k56qtc6afw380ywne1mapwp8_1757945511762.png";
+import iconicBrandParade from "@assets/20250915_1833_Iconic Brand Parade_simple_compose_01k56qekjmfmgbdngtxcs36nbf_1757945901630.png";
+
 export default function Home() {
   const [, setLocation] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
@@ -490,6 +495,50 @@ export default function Home() {
               Discover top-quality products from India's most trusted brands. From household names to emerging favorites, 
               find everything you need for your business.
             </p>
+          </div>
+
+          {/* Premium Brand Showcase */}
+          <div className="mb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="group cursor-pointer" data-testid="luxury-brand-logos">
+                <Card className="overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <CardContent className="p-0">
+                    <img 
+                      src={luxeBrandLogos} 
+                      alt="Premium Brand Logo Display - Amul, MDH, Haldiram's, VEEBA, MTR, CREMICA, Knorr, Mapro, Nestle and more" 
+                      className="w-full h-64 object-cover rounded-lg"
+                    />
+                  </CardContent>
+                </Card>
+                <p className="text-center mt-4 text-gray-600 dark:text-gray-400 font-medium">Premium Brand Collection</p>
+              </div>
+
+              <div className="group cursor-pointer" data-testid="luxury-culinary-ribbon">
+                <Card className="overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <CardContent className="p-0">
+                    <img 
+                      src={luxuryCulinaryRibbon} 
+                      alt="Luxury Culinary Ribbon showcasing fresh ingredients with premium food brands" 
+                      className="w-full h-64 object-cover rounded-lg"
+                    />
+                  </CardContent>
+                </Card>
+                <p className="text-center mt-4 text-gray-600 dark:text-gray-400 font-medium">Fresh & Quality Assured</p>
+              </div>
+
+              <div className="group cursor-pointer" data-testid="iconic-brand-parade">
+                <Card className="overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <CardContent className="p-0">
+                    <img 
+                      src={iconicBrandParade} 
+                      alt="Iconic Brand Product Parade featuring authentic packaging from top food and beverage brands" 
+                      className="w-full h-64 object-cover rounded-lg"
+                    />
+                  </CardContent>
+                </Card>
+                <p className="text-center mt-4 text-gray-600 dark:text-gray-400 font-medium">Authentic Products</p>
+              </div>
+            </div>
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full" data-testid="brands-tabs">
