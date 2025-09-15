@@ -2,7 +2,7 @@ import { type Product } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Package, ShoppingCart, Star, Award, Eye, Plus, Coffee, Heart, Cookie, Globe } from "lucide-react";
+import { Package, ShoppingCart, Star, Award, Eye, Plus, Coffee, Heart, Cookie, Globe, FileText, MessageCircle } from "lucide-react";
 import { 
   SiCocacola, 
   SiMcdonalds,
@@ -11,6 +11,7 @@ import {
   SiApple,
   SiAmazon
 } from "react-icons/si";
+import { useToast } from "@/hooks/use-toast";
 
 interface ProductCardProps {
   product: Product;
@@ -99,6 +100,21 @@ const getBrandGradient = (product: Product): string => {
 export default function ProductCard({ product, showQuickActions = true, compact = false }: ProductCardProps) {
   const category = getProductCategory(product);
   const brandGradient = getBrandGradient(product);
+  const { toast } = useToast();
+
+  const handleViewDetails = () => {
+    toast({
+      title: "Product Details",
+      description: `Viewing details for ${product.productName} from ${product.brand}. Weight/Pack: ${product.weightPack}`,
+    });
+  };
+
+  const handleRequestQuote = () => {
+    toast({
+      title: "Quote Requested",
+      description: `Quote request sent for ${product.productName}. We'll contact you shortly with pricing details.`,
+    });
+  };
 
   if (compact) {
     return (
@@ -182,18 +198,20 @@ export default function ProductCard({ product, showQuickActions = true, compact 
               <Button 
                 size="sm" 
                 variant="outline" 
+                onClick={handleViewDetails}
                 className="flex-1 bg-white/80 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-700 border-slate-200 dark:border-slate-600 font-semibold transition-all duration-200 hover:scale-105"
                 data-testid={`product-view-details-${product.id}`}
               >
-                <Eye className="h-4 w-4 mr-1" />
+                <FileText className="h-4 w-4 mr-1" />
                 Details
               </Button>
               <Button 
                 size="sm" 
+                onClick={handleRequestQuote}
                 className="flex-1 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
                 data-testid={`product-request-quote-${product.id}`}
               >
-                <Plus className="h-4 w-4 mr-1" />
+                <MessageCircle className="h-4 w-4 mr-1" />
                 Quote
               </Button>
             </div>
@@ -219,6 +237,21 @@ export default function ProductCard({ product, showQuickActions = true, compact 
 export function ProductCardList({ product }: { product: Product }) {
   const category = getProductCategory(product);
   const brandGradient = getBrandGradient(product);
+  const { toast } = useToast();
+
+  const handleViewDetails = () => {
+    toast({
+      title: "Product Details",
+      description: `Viewing details for ${product.productName} from ${product.brand}. Weight/Pack: ${product.weightPack}`,
+    });
+  };
+
+  const handleRequestQuote = () => {
+    toast({
+      title: "Quote Requested",
+      description: `Quote request sent for ${product.productName}. We'll contact you shortly with pricing details.`,
+    });
+  };
 
   return (
     <Card 
@@ -251,12 +284,23 @@ export function ProductCardList({ product }: { product: Product }) {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button size="sm" variant="outline" className="bg-white/80 hover:bg-white">
-              <Eye className="h-4 w-4 mr-1" />
+            <Button 
+              size="sm" 
+              variant="outline" 
+              onClick={handleViewDetails}
+              className="bg-white/80 hover:bg-white"
+              data-testid={`product-list-details-${product.id}`}
+            >
+              <FileText className="h-4 w-4 mr-1" />
               View
             </Button>
-            <Button size="sm" className="bg-primary hover:bg-primary/90">
-              <Plus className="h-4 w-4 mr-1" />
+            <Button 
+              size="sm" 
+              onClick={handleRequestQuote}
+              className="bg-primary hover:bg-primary/90"
+              data-testid={`product-list-quote-${product.id}`}
+            >
+              <MessageCircle className="h-4 w-4 mr-1" />
               Quote
             </Button>
           </div>
