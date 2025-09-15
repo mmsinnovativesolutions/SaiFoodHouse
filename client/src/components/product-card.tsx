@@ -2,7 +2,15 @@ import { type Product } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Package, ShoppingCart, Star, Award, Eye, Plus } from "lucide-react";
+import { Package, ShoppingCart, Star, Award, Eye, Plus, Coffee, Heart, Cookie, Globe } from "lucide-react";
+import { 
+  SiCocacola, 
+  SiMcdonalds,
+  SiStarbucks,
+  SiBurgerking,
+  SiApple,
+  SiAmazon
+} from "react-icons/si";
 
 interface ProductCardProps {
   product: Product;
@@ -31,6 +39,40 @@ const getProductCategory = (product: Product): string => {
     return "Health & Wellness";
   }
   return "General";
+};
+
+// Helper function to get brand icon for a product
+const getBrandIcon = (product: Product) => {
+  const brand = product.brand.toLowerCase();
+  const iconSize = { size: 16 };
+  
+  switch (brand) {
+    case "coca cola":
+    case "cocacola":
+      return <SiCocacola {...iconSize} className="text-red-600" />;
+    case "mcdonalds":
+    case "mcdonald's":
+      return <SiMcdonalds {...iconSize} className="text-yellow-500" />;
+    case "starbucks":
+      return <SiStarbucks {...iconSize} className="text-green-700" />;
+    case "burger king":
+    case "burgerking":
+      return <SiBurgerking {...iconSize} className="text-orange-600" />;
+    case "apple":
+      return <SiApple {...iconSize} className="text-gray-800 dark:text-gray-200" />;
+    case "amazon":
+      return <SiAmazon {...iconSize} className="text-orange-500" />;
+    case "nestle":
+      return <Coffee {...iconSize} className="text-red-800" />;
+    case "cadbury":
+      return <Heart {...iconSize} className="text-purple-600" />;
+    case "britannia":
+      return <Cookie {...iconSize} className="text-orange-600" />;
+    case "imported":
+      return <Globe {...iconSize} className="text-blue-600" />;
+    default:
+      return <Award {...iconSize} className="text-primary" />;
+  }
 };
 
 // Helper function to get brand color theme
@@ -109,7 +151,7 @@ export default function ProductCard({ product, showQuickActions = true, compact 
               className="bg-gradient-to-r from-slate-800 to-slate-700 dark:from-slate-200 dark:to-slate-100 text-white dark:text-slate-800 border-0 font-semibold shadow-lg hover:shadow-xl transition-shadow"
               data-testid={`product-brand-${product.id}`}
             >
-              <Award className="h-3 w-3 mr-1" />
+              <span className="mr-1">{getBrandIcon(product)}</span>
               {product.brand}
             </Badge>
             <Badge 
@@ -191,6 +233,7 @@ export function ProductCardList({ product }: { product: Product }) {
                 className="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-800 border-0 font-semibold"
                 data-testid={`product-list-brand-${product.id}`}
               >
+                <span className="mr-1">{getBrandIcon(product)}</span>
                 {product.brand}
               </Badge>
               <Badge variant="secondary" className="text-xs">

@@ -1,5 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Utensils, Globe, Cookie, Coffee, Candy } from "lucide-react";
+import { 
+  SiCocacola, 
+  SiMcdonalds,
+  SiStarbucks,
+  SiBurgerking,
+  SiApple,
+  SiAmazon,
+  SiGoogle
+} from "react-icons/si";
+import { Package, ShoppingBag, Award, Sparkles, Coffee, Cookie, Globe, Heart, Utensils } from "lucide-react";
 
 interface BrandCardProps {
   brand: string;
@@ -8,20 +17,40 @@ interface BrandCardProps {
 }
 
 const getBrandIcon = (brand: string) => {
-  const iconClass = "text-2xl text-primary";
   const iconSize = { size: 32 };
   
   switch (brand.toLowerCase()) {
+    case "coca cola":
+    case "cocacola":
+      return <SiCocacola {...iconSize} className="text-red-600" />;
+    case "mcdonalds":
+    case "mcdonald's":
+      return <SiMcdonalds {...iconSize} className="text-yellow-500" />;
+    case "starbucks":
+      return <SiStarbucks {...iconSize} className="text-green-700" />;
+    case "burger king":
+    case "burgerking":
+      return <SiBurgerking {...iconSize} className="text-orange-600" />;
+    case "apple":
+      return <SiApple {...iconSize} className="text-gray-800 dark:text-gray-200" />;
+    case "amazon":
+      return <SiAmazon {...iconSize} className="text-orange-500" />;
+    case "google":
+      return <SiGoogle {...iconSize} className="text-blue-500" />;
     case "nestle":
-      return <Coffee {...iconSize} className="text-primary" />;
+      return <Coffee {...iconSize} className="text-red-800" />;
     case "cadbury":
-      return <Candy {...iconSize} className="text-primary" />;
+      return <Heart {...iconSize} className="text-purple-600" />;
     case "britannia":
-      return <Cookie {...iconSize} className="text-primary" />;
+      return <Cookie {...iconSize} className="text-orange-600" />;
     case "imported":
-      return <Globe {...iconSize} className="text-primary" />;
+      return <Globe {...iconSize} className="text-blue-600" />;
+    case "amul":
+      return <Package {...iconSize} className="text-blue-700" />;
+    case "veeba":
+      return <Sparkles {...iconSize} className="text-green-600" />;
     default:
-      return <Utensils {...iconSize} className="text-primary" />;
+      return <ShoppingBag {...iconSize} className="text-primary" />;
   }
 };
 
