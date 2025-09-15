@@ -260,6 +260,223 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Famous Brands Tabs Section */}
+      <section className="py-20 bg-gradient-to-br from-rose-50 via-orange-50 to-yellow-50 dark:from-rose-900/10 dark:via-orange-900/10 dark:to-yellow-900/10 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-3"
+          style={{ backgroundImage: `url(${abstractIconsBg})` }}
+        ></div>
+        <div className="absolute inset-0 pattern-dots opacity-30"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-rose-600 to-orange-600 bg-clip-text text-transparent" data-testid="famous-brands-title">
+              Famous Brands in Our Catalog
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Discover top-quality products from India's most trusted brands. From household names to emerging favorites, 
+              find everything you need for your business.
+            </p>
+          </div>
+
+          {/* Premium Brand Showcase */}
+          <div className="mb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="group cursor-pointer" data-testid="luxury-brand-logos">
+                <Card className="overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <CardContent className="p-0">
+                    <img 
+                      src={luxeBrandLogos} 
+                      alt="Premium Brand Logo Display - Amul, MDH, Haldiram's, VEEBA, MTR, CREMICA, Knorr, Mapro, Nestle and more" 
+                      className="w-full h-64 object-cover rounded-lg"
+                    />
+                  </CardContent>
+                </Card>
+                <p className="text-center mt-4 text-gray-600 dark:text-gray-400 font-medium">Premium Brand Collection</p>
+              </div>
+
+              <div className="group cursor-pointer" data-testid="luxury-culinary-ribbon">
+                <Card className="overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <CardContent className="p-0">
+                    <img 
+                      src={luxuryCulinaryRibbon} 
+                      alt="Luxury Culinary Ribbon showcasing fresh ingredients with premium food brands" 
+                      className="w-full h-64 object-cover rounded-lg"
+                    />
+                  </CardContent>
+                </Card>
+                <p className="text-center mt-4 text-gray-600 dark:text-gray-400 font-medium">Fresh & Quality Assured</p>
+              </div>
+
+              <div className="group cursor-pointer" data-testid="iconic-brand-parade">
+                <Card className="overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <CardContent className="p-0">
+                    <img 
+                      src={iconicBrandParade} 
+                      alt="Iconic Brand Product Parade featuring authentic packaging from top food and beverage brands" 
+                      className="w-full h-64 object-cover rounded-lg"
+                    />
+                  </CardContent>
+                </Card>
+                <p className="text-center mt-4 text-gray-600 dark:text-gray-400 font-medium">Authentic Products</p>
+              </div>
+            </div>
+          </div>
+
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full" data-testid="brands-tabs">
+            <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-flex bg-white dark:bg-gray-800 border shadow-lg rounded-lg p-2 mb-12">
+              <TabsTrigger 
+                value="top-brands" 
+                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-rose-500 data-[state=active]:to-orange-500 data-[state=active]:text-white"
+                data-testid="tab-top-brands"
+              >
+                <Star className="h-4 w-4" />
+                <span className="hidden sm:inline">Top Brands</span>
+                <span className="sm:hidden">Top</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="trending" 
+                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-yellow-500 data-[state=active]:text-white"
+                data-testid="tab-trending"
+              >
+                <TrendingUp className="h-4 w-4" />
+                <span className="hidden sm:inline">Trending</span>
+                <span className="sm:hidden">Trend</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="new-catalog" 
+                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-yellow-500 data-[state=active]:to-green-500 data-[state=active]:text-white"
+                data-testid="tab-new-catalog"
+              >
+                <Plus className="h-4 w-4" />
+                <span className="hidden sm:inline">New to Catalog</span>
+                <span className="sm:hidden">New</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="by-category" 
+                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-blue-500 data-[state=active]:text-white"
+                data-testid="tab-by-category"
+              >
+                <Grid className="h-4 w-4" />
+                <span className="hidden sm:inline">By Category</span>
+                <span className="sm:hidden">Category</span>
+              </TabsTrigger>
+            </TabsList>
+
+            {/* Top Brands Tab */}
+            <TabsContent value="top-brands" className="mt-8" data-testid="content-top-brands">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-rose-700 dark:text-rose-300 mb-2">Top Performing Brands</h3>
+                <p className="text-gray-600 dark:text-gray-400">Brands with the highest product variety and market presence</p>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {topBrands.map((brand) => (
+                  <BrandCard
+                    key={brand.brand}
+                    brand={brand.brand}
+                    productCount={brand.productCount}
+                    onClick={() => handleBrandClick(brand.brand)}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+
+            {/* Trending Tab */}
+            <TabsContent value="trending" className="mt-8" data-testid="content-trending">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-orange-700 dark:text-orange-300 mb-2">Trending Brands</h3>
+                <p className="text-gray-600 dark:text-gray-400">Popular brands seeing increased demand from retailers</p>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {trendingBrands.map((brand) => (
+                  <BrandCard
+                    key={brand.brand}
+                    brand={brand.brand}
+                    productCount={brand.productCount}
+                    onClick={() => handleBrandClick(brand.brand)}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+
+            {/* New to Catalog Tab */}
+            <TabsContent value="new-catalog" className="mt-8" data-testid="content-new-catalog">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-yellow-700 dark:text-yellow-300 mb-2">New to Our Catalog</h3>
+                <p className="text-gray-600 dark:text-gray-400">Recently added brands expanding our product portfolio</p>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {newToCatalog.map((brand) => (
+                  <BrandCard
+                    key={brand.brand}
+                    brand={brand.brand}
+                    productCount={brand.productCount}
+                    onClick={() => handleBrandClick(brand.brand)}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+
+            {/* By Category Tab */}
+            <TabsContent value="by-category" className="mt-8" data-testid="content-by-category">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-green-700 dark:text-green-300 mb-2">Brands by Category</h3>
+                <p className="text-gray-600 dark:text-gray-400">Explore brands organized by product categories</p>
+              </div>
+              <div className="space-y-12">
+                {Object.entries(categorizedBrands).map(([category, categoryBrands]) => (
+                  categoryBrands.length > 0 && (
+                    <div key={category} data-testid={`category-${category.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}>
+                      <h4 className="text-xl font-semibold mb-6 text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">
+                        {category}
+                      </h4>
+                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                        {categoryBrands.map((brand) => (
+                          <BrandCard
+                            key={brand.brand}
+                            brand={brand.brand}
+                            productCount={brand.productCount}
+                            onClick={() => handleBrandClick(brand.brand)}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )
+                ))}
+                {Object.values(categorizedBrands).every(cat => cat.length === 0) && (
+                  <div className="text-center py-12">
+                    <p className="text-gray-500 dark:text-gray-400">Categories will be populated as brand data loads...</p>
+                  </div>
+                )}
+              </div>
+            </TabsContent>
+          </Tabs>
+
+          {/* Call to Action */}
+          <div className="text-center mt-16">
+            <div className="bg-gradient-to-r from-rose-500/10 to-orange-500/10 dark:from-rose-400/10 dark:to-orange-400/10 rounded-2xl p-8 border border-rose-200/50 dark:border-rose-800/50">
+              <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+                Don't See Your Preferred Brand?
+              </h3>
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
+                We're constantly expanding our catalog. Contact us to request specific brands or products for your business needs.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/brands">
+                  <Button className="px-8 py-3 bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white font-semibold rounded-lg shadow-lg transition-all duration-300" data-testid="cta-view-all-brands">
+                    View All Brands
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button variant="outline" className="px-8 py-3 border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-900/20 font-semibold rounded-lg transition-all duration-300" data-testid="cta-request-brand">
+                    Request a Brand
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Mission & Vision Section */}
       <section className="py-20 bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50 dark:from-violet-900/10 dark:via-purple-900/10 dark:to-fuchsia-900/10 relative overflow-hidden">
         <div 
@@ -479,222 +696,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Famous Brands Tabs Section */}
-      <section className="py-20 bg-gradient-to-br from-rose-50 via-orange-50 to-yellow-50 dark:from-rose-900/10 dark:via-orange-900/10 dark:to-yellow-900/10 relative overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-3"
-          style={{ backgroundImage: `url(${abstractIconsBg})` }}
-        ></div>
-        <div className="absolute inset-0 pattern-dots opacity-30"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-rose-600 to-orange-600 bg-clip-text text-transparent" data-testid="famous-brands-title">
-              Famous Brands in Our Catalog
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Discover top-quality products from India's most trusted brands. From household names to emerging favorites, 
-              find everything you need for your business.
-            </p>
-          </div>
-
-          {/* Premium Brand Showcase */}
-          <div className="mb-16">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="group cursor-pointer" data-testid="luxury-brand-logos">
-                <Card className="overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-                  <CardContent className="p-0">
-                    <img 
-                      src={luxeBrandLogos} 
-                      alt="Premium Brand Logo Display - Amul, MDH, Haldiram's, VEEBA, MTR, CREMICA, Knorr, Mapro, Nestle and more" 
-                      className="w-full h-64 object-cover rounded-lg"
-                    />
-                  </CardContent>
-                </Card>
-                <p className="text-center mt-4 text-gray-600 dark:text-gray-400 font-medium">Premium Brand Collection</p>
-              </div>
-
-              <div className="group cursor-pointer" data-testid="luxury-culinary-ribbon">
-                <Card className="overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-                  <CardContent className="p-0">
-                    <img 
-                      src={luxuryCulinaryRibbon} 
-                      alt="Luxury Culinary Ribbon showcasing fresh ingredients with premium food brands" 
-                      className="w-full h-64 object-cover rounded-lg"
-                    />
-                  </CardContent>
-                </Card>
-                <p className="text-center mt-4 text-gray-600 dark:text-gray-400 font-medium">Fresh & Quality Assured</p>
-              </div>
-
-              <div className="group cursor-pointer" data-testid="iconic-brand-parade">
-                <Card className="overflow-hidden bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-                  <CardContent className="p-0">
-                    <img 
-                      src={iconicBrandParade} 
-                      alt="Iconic Brand Product Parade featuring authentic packaging from top food and beverage brands" 
-                      className="w-full h-64 object-cover rounded-lg"
-                    />
-                  </CardContent>
-                </Card>
-                <p className="text-center mt-4 text-gray-600 dark:text-gray-400 font-medium">Authentic Products</p>
-              </div>
-            </div>
-          </div>
-
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full" data-testid="brands-tabs">
-            <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-flex bg-white dark:bg-gray-800 border shadow-lg rounded-lg p-2 mb-12">
-              <TabsTrigger 
-                value="top-brands" 
-                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-rose-500 data-[state=active]:to-orange-500 data-[state=active]:text-white"
-                data-testid="tab-top-brands"
-              >
-                <Star className="h-4 w-4" />
-                <span className="hidden sm:inline">Top Brands</span>
-                <span className="sm:hidden">Top</span>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="trending" 
-                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-yellow-500 data-[state=active]:text-white"
-                data-testid="tab-trending"
-              >
-                <TrendingUp className="h-4 w-4" />
-                <span className="hidden sm:inline">Trending</span>
-                <span className="sm:hidden">Trend</span>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="new-catalog" 
-                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-yellow-500 data-[state=active]:to-green-500 data-[state=active]:text-white"
-                data-testid="tab-new-catalog"
-              >
-                <Plus className="h-4 w-4" />
-                <span className="hidden sm:inline">New to Catalog</span>
-                <span className="sm:hidden">New</span>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="by-category" 
-                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-blue-500 data-[state=active]:text-white"
-                data-testid="tab-by-category"
-              >
-                <Grid className="h-4 w-4" />
-                <span className="hidden sm:inline">By Category</span>
-                <span className="sm:hidden">Category</span>
-              </TabsTrigger>
-            </TabsList>
-
-            {/* Top Brands Tab */}
-            <TabsContent value="top-brands" className="mt-8" data-testid="content-top-brands">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-rose-700 dark:text-rose-300 mb-2">Top Performing Brands</h3>
-                <p className="text-gray-600 dark:text-gray-400">Brands with the highest product variety and market presence</p>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {topBrands.map((brand) => (
-                  <BrandCard
-                    key={brand.brand}
-                    brand={brand.brand}
-                    productCount={brand.productCount}
-                    onClick={() => handleBrandClick(brand.brand)}
-                  />
-                ))}
-              </div>
-            </TabsContent>
-
-            {/* Trending Tab */}
-            <TabsContent value="trending" className="mt-8" data-testid="content-trending">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-orange-700 dark:text-orange-300 mb-2">Trending Brands</h3>
-                <p className="text-gray-600 dark:text-gray-400">Popular brands seeing increased demand from retailers</p>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {trendingBrands.map((brand) => (
-                  <BrandCard
-                    key={brand.brand}
-                    brand={brand.brand}
-                    productCount={brand.productCount}
-                    onClick={() => handleBrandClick(brand.brand)}
-                  />
-                ))}
-              </div>
-            </TabsContent>
-
-            {/* New to Catalog Tab */}
-            <TabsContent value="new-catalog" className="mt-8" data-testid="content-new-catalog">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-yellow-700 dark:text-yellow-300 mb-2">New to Our Catalog</h3>
-                <p className="text-gray-600 dark:text-gray-400">Recently added brands expanding our product portfolio</p>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {newToCatalog.map((brand) => (
-                  <BrandCard
-                    key={brand.brand}
-                    brand={brand.brand}
-                    productCount={brand.productCount}
-                    onClick={() => handleBrandClick(brand.brand)}
-                  />
-                ))}
-              </div>
-            </TabsContent>
-
-            {/* By Category Tab */}
-            <TabsContent value="by-category" className="mt-8" data-testid="content-by-category">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-green-700 dark:text-green-300 mb-2">Brands by Category</h3>
-                <p className="text-gray-600 dark:text-gray-400">Explore brands organized by product categories</p>
-              </div>
-              <div className="space-y-12">
-                {Object.entries(categorizedBrands).map(([category, categoryBrands]) => (
-                  categoryBrands.length > 0 && (
-                    <div key={category} data-testid={`category-${category.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}>
-                      <h4 className="text-xl font-semibold mb-6 text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">
-                        {category}
-                      </h4>
-                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                        {categoryBrands.map((brand) => (
-                          <BrandCard
-                            key={brand.brand}
-                            brand={brand.brand}
-                            productCount={brand.productCount}
-                            onClick={() => handleBrandClick(brand.brand)}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )
-                ))}
-                {Object.values(categorizedBrands).every(cat => cat.length === 0) && (
-                  <div className="text-center py-12">
-                    <p className="text-gray-500 dark:text-gray-400">Categories will be populated as brand data loads...</p>
-                  </div>
-                )}
-              </div>
-            </TabsContent>
-          </Tabs>
-
-          {/* Call to Action */}
-          <div className="text-center mt-16">
-            <div className="bg-gradient-to-r from-rose-500/10 to-orange-500/10 dark:from-rose-400/10 dark:to-orange-400/10 rounded-2xl p-8 border border-rose-200/50 dark:border-rose-800/50">
-              <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">
-                Don't See Your Preferred Brand?
-              </h3>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-                We're constantly expanding our catalog. Contact us to request specific brands or products for your business needs.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/brands">
-                  <Button className="px-8 py-3 bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white font-semibold rounded-lg shadow-lg transition-all duration-300" data-testid="cta-view-all-brands">
-                    View All Brands
-                  </Button>
-                </Link>
-                <Link href="/contact">
-                  <Button variant="outline" className="px-8 py-3 border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-900/20 font-semibold rounded-lg transition-all duration-300" data-testid="cta-request-brand">
-                    Request a Brand
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Category Collections Section */}
       <section className="py-20 bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 dark:from-amber-900/10 dark:via-yellow-900/10 dark:to-orange-900/10 relative overflow-hidden">
