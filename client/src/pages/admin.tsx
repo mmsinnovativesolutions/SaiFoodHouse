@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Upload, FileSpreadsheet, AlertCircle, CheckCircle, X } from "lucide-react";
+import { Upload, FileSpreadsheet, AlertCircle, CheckCircle, X, Lock, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 
 interface UploadResponse {
@@ -21,6 +23,72 @@ export default function Admin() {
   const queryClient = useQueryClient();
   const [dragOver, setDragOver] = useState(false);
   const [uploadResult, setUploadResult] = useState<UploadResponse | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [adminToken, setAdminToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    // Check if already authenticated
+    const token = localStorage.getItem('adminToken');
+    if (token) {
+      setAdminToken(token);
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    try {
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Login failed');
+      }
+      
+      const data = await response.json();
+      const token = data.token;
+      
+      localStorage.setItem('adminToken', token);
+      setAdminToken(token);
+      setIsAuthenticated(true);
+      setPassword("");
+      
+      toast({
+        title: "Login successful",
+        description: "Welcome to the admin panel",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Login failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    setAdminToken(null);
+    setIsAuthenticated(false);
+    setUploadResult(null);
+    toast({
+      title: "Logged out",
+      description: "You have been logged out successfully",
+    });
+  };
 
   const uploadMutation = useMutation({
     mutationFn: async (file: File) => {
@@ -29,6 +97,9 @@ export default function Admin() {
 
       const response = await fetch('/api/admin/upload-excel', {
         method: 'POST',
+        headers: {
+          'x-admin-token': adminToken || '',
+        },
         body: formData,
       });
 
@@ -88,12 +159,83 @@ export default function Admin() {
     }
   };
 
+  // Show login form if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900 dark:to-slate-800">
+        <Card className="w-full max-w-md mx-4">
+          <CardHeader className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Lock className="h-8 w-8 text-white" />
+            </div>
+            <CardTitle className="text-2xl font-bold" data-testid="admin-login-title">
+              Admin Login
+            </CardTitle>
+            <CardDescription>
+              Enter your password to access the admin panel
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter admin password"
+                    required
+                    data-testid="input-admin-password"
+                    className="pr-10"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                    onClick={() => setShowPassword(!showPassword)}
+                    data-testid="button-toggle-password"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+              </div>
+              <Button 
+                type="submit" 
+                className="w-full" 
+                disabled={isLoading || !password}
+                data-testid="button-login"
+              >
+                {isLoading ? "Logging in..." : "Login"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="admin-title">
-          Admin Panel
-        </h2>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold" data-testid="admin-title">
+            Admin Panel
+          </h2>
+          <Button 
+            onClick={handleLogout} 
+            variant="outline"
+            data-testid="button-logout"
+          >
+            Logout
+          </Button>
+        </div>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
           Upload Excel files to update the product catalog. The system will replace all existing products with the new data.
         </p>

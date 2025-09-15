@@ -88,13 +88,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Simple admin authentication middleware
   const requireAdminAuth = (req: any, res: any, next: any) => {
     const adminToken = req.headers['x-admin-token'] || req.query.adminToken;
-    const expectedToken = process.env.ADMIN_TOKEN || 'admin123'; // Default for development
+    const expectedToken = process.env.ADMIN_TOKEN || 'saifood12345'; // Default password
     
     if (adminToken !== expectedToken) {
       return res.status(401).json({ message: "Unauthorized. Admin access required." });
     }
     next();
   };
+
+  // Admin login endpoint
+  app.post("/api/admin/login", async (req, res) => {
+    try {
+      const { password } = req.body;
+      const expectedPassword = process.env.ADMIN_TOKEN || 'saifood12345';
+      
+      if (password !== expectedPassword) {
+        return res.status(401).json({ message: "Invalid password" });
+      }
+      
+      res.json({ 
+        message: "Login successful", 
+        token: expectedPassword 
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Login failed" });
+    }
+  });
 
   // Upload Excel file and import products (with authentication)
   app.post("/api/admin/upload-excel", requireAdminAuth, upload.single('excel'), async (req, res) => {
