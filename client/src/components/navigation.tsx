@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Navigation() {
@@ -27,8 +27,16 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-semibold text-primary" data-testid="logo-link">
-              F&B Catalog
+            <Link href="/" className="flex items-center group" data-testid="logo-link">
+              <div className="flex flex-col items-center font-bold text-foreground">
+                <div className="flex items-center space-x-2">
+                  <div className="h-px bg-foreground w-8"></div>
+                  <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                  <div className="h-px bg-foreground w-8"></div>
+                </div>
+                <div className="text-lg font-black tracking-wide">SAI FOOD HOUSE</div>
+                <div className="h-px bg-foreground w-32 mt-1"></div>
+              </div>
             </Link>
           </div>
 
