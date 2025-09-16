@@ -27,6 +27,9 @@ import luxeBrandLogos from "@assets/20250915_1832_Luxe Brand Logo Display_simple
 import luxuryCulinaryRibbon from "@assets/20250915_1839_Luxury Culinary Ribbon_simple_compose_01k56qtc6afw380ywne1mapwp8_1757945511762.png";
 import iconicBrandParade from "@assets/20250915_1833_Iconic Brand Parade_simple_compose_01k56qekjmfmgbdngtxcs36nbf_1757945901630.png";
 
+// Import hero background
+import brandLogosBackground from "@assets/brand-logos-background.jpg";
+
 export default function Home() {
   const [, setLocation] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
@@ -133,8 +136,13 @@ export default function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="hero-gradient text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <section className="hero-gradient text-white relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: `url(${brandLogosBackground})` }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/60 via-purple-900/60 to-indigo-900/60"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6" data-testid="hero-title">
               Sai Food House
@@ -147,15 +155,10 @@ export default function Home() {
             </p>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <div className="flex justify-center mb-12">
               <Link href="/brands">
                 <Button className="px-8 py-4 bg-white text-black hover:bg-gray-100 transition-colors text-lg font-semibold rounded-lg shadow-lg" data-testid="cta-browse-brands">
                   Browse Brands
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button className="px-8 py-4 bg-accent text-accent-foreground hover:bg-secondary transition-colors text-lg font-semibold rounded-lg shadow-lg border-2 border-white" data-testid="cta-bulk-enquiry">
-                  Bulk Enquiry
                 </Button>
               </Link>
             </div>
